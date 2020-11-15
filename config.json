@@ -93,7 +93,7 @@
         },
         {
             "name": "MetVuw 1300 forecast issued at",
-            "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-006.gif",
+            "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-012.gif",
             "utc": "1",
             "times": ["0100"]
         },
@@ -172,13 +172,13 @@
         },
         {
             "name": "MetVuw tomorrow 1300 forecast issued at",
-            "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-030.gif",
+            "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-036.gif",
             "utc": "1",
             "times": ["0100"]
         },
         {
             "name": "MetVuw tomorrow 1300 forecast issued at",
-            "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-054.gif",
+            "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-060.gif",
             "utc": "1",
             "times": ["0100"]
         }
