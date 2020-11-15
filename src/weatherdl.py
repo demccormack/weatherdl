@@ -20,11 +20,13 @@ class downloader(object):
         """
         Download the images
         """
-        index = 1
-        failCount = 0
+        index = 0
+        successCount = 0
+        failedItems = []
         for item in self.config["items"]:
             for time in item["times"]:
                 try:
+                    index += 1
                     dt = self.startTime
                     if len(time) > 0:
                         dt = dt.replace(hour=int(time[0:2]), minute=int(time[2:4]))
@@ -35,19 +37,21 @@ class downloader(object):
                     url = dt.strftime(item["url"])
                     myfile = requests.get(url)
                     typ = magic.from_buffer(myfile.content, mime=True).split('/')
-                    if typ[0] != "image":
-                        raise Exception("Not an image")
                     ext = typ[1]
                     name = f"{index:03d} {item['name']} {time}.{ext}"
                     path = os.path.join(self.imgDir, name)
+                    if typ[0] != "image":
+                        raise Exception("Not an image")
                     open(path, "wb").write(myfile.content)
                     print(f"Success! - {name}")
-                    index += 1
+                    successCount += 1
                 except Exception as e:
                     print(f"Failed to download - {str(e)} - {url}")
-                    failCount += 1
+                    failedItems.append(f"{name} --- {url}")
         td = self.tz.fromutc(datetime.datetime.utcnow()) - self.startTime
-        print(f"{str(index - 1)} images downloaded, {failCount} failed, in {str(td)}")
+        print(f"{successCount} images downloaded in {td}.\n\n{len(failedItems)} images failed:")
+        for fail in failedItems:
+            print(fail)
 
 if __name__ == "__main__":
     dl = downloader()
