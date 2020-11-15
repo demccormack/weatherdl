@@ -1,0 +1,186 @@
+{
+    "timezone": "Pacific/Auckland",
+    "items": [
+        {
+            "name": "Surface Pressure",
+            "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
+            "utc": "1",
+            "times": ["0100", "0700"]
+        },
+        {
+            "name": "Infrared",
+            "url": "https://www.metservice.com/publicData/australiaInfraredColourImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
+            "utc": "1",
+            "times": ["0600", "0700", "0800", "0900"]
+        },
+        {
+            "name": "Visible",
+            "url": "https://www.metservice.com/publicData/nzVisibleSatelliteImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
+            "utc": "1",
+            "times": ["0700", "0800", "0900"]
+        },
+        {
+            "name": "Webcam - Wanaka Waterfront",
+            "url": "https://www.lakewanaka.co.nz/assets/webcams/waterfront-cam/image%y-%m-%d_%H-%M-58.jpg",
+            "utc": "0",
+            "times": ["0759", "0859"]
+        },
+        {
+            "name": "Webcam - Wanaka and Lindis Pass",
+            "url": "https://professionalsoaring.com/tools/webcam/cam1.jpg",
+            "utc": "0",
+            "times": [""]
+        },
+        {
+            "name": "Webcam - Lake Wanaka",
+            "url": "https://professionalsoaring.com/tools/webcam/cam2.jpg",
+            "utc": "0",
+            "times": [""]
+        },
+        {
+            "name": "Webcam - Lake Pukaki",
+            "url": "http://snowgrass.co.nz/cust/lakestone/images/webcam.jpg",
+            "utc": "0",
+            "times": [""]
+        },
+        {
+            "name": "Webcam - Tekapo",
+            "url": "http://www.tekapotourism.co.nz/webcam/images/north_east.jpg",
+            "utc": "0",
+            "times": [""]
+        },
+        {
+            "name": "Webcam - Alexandra",
+            "url": "http://upload.aopa.nz/moutere.jpg",
+            "utc": "0",
+            "times": [""]
+        },
+        {
+            "name": "Webcam - Cromwell",
+            "url": "http://snowgrass.co.nz/cust/cromwell/images/webcam.jpg",
+            "utc": "0",
+            "times": [""]
+        },
+        {
+            "name": "Webcam - Dansey's Pass",
+            "url": "http://upload.aopa.nz/danseys.jpg",
+            "utc": "0",
+            "times": [""]
+        },
+        {
+            "name": "Webcam - Mt Nicholas Station",
+            "url": "http://upload.aopa.nz/mtnic.jpg",
+            "utc": "0",
+            "times": [""]
+        },
+        {
+            "name": "Webcam - Glenorchy",
+            "url": "http://www.snowgrass.co.nz/cust/glenorchy_air/images/webcam.jpg",
+            "utc": "0",
+            "times": [""]
+        },
+        {
+            "name": "Webcam - Haast Pass",
+            "url": "https://www.trafficnz.info/camera/738.jpg",
+            "utc": "0",
+            "times": [""]
+        },
+        {
+            "name": "Surface Pressure",
+            "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
+            "utc": "1",
+            "times": ["1300"]
+        },
+        {
+            "name": "MetVuw 1300 forecast issued at",
+            "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-006.gif",
+            "utc": "1",
+            "times": ["0100"]
+        },
+        {
+            "name": "Sounding",
+            "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/sounding1.curr.%H%Mlst.w2.png",
+            "utc": "0",
+            "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"]
+        },
+        {
+            "name": "Surface Sun",
+            "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/sfcsunpct.curr.%H%Mlst.w2.png",
+            "utc": "0",
+            "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"]
+        },
+        {
+            "name": "Rain",
+            "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/rain1.curr.%H%Mlst.w2.png",
+            "utc": "0",
+            "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"]
+        },
+        {
+            "name": "Surface Wind",
+            "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/sfcwind.curr.%H%Mlst.w2.png",
+            "utc": "0",
+            "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"]
+        },
+        {
+            "name": "Thermalling Height",
+            "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/hglider.curr.%H%Mlst.w2.png",
+            "utc": "0",
+            "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"]
+        },
+        {
+            "name": "Thermal Strength",
+            "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/wstar_bsratio.curr.%H%Mlst.w2.png",
+            "utc": "0",
+            "times": ["1500"]
+        },
+        {
+            "name": "Cumulus Cloudbase",
+            "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/zsfclclmask.curr.%H%Mlst.w2.png",
+            "utc": "0",
+            "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"]
+        },
+        {
+            "name": "OD Cloudbase",
+            "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/zblclmask.curr.%H%Mlst.w2.png",
+            "utc": "0",
+            "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"]
+        },
+        {
+            "name": "Convergence",
+            "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/wblmaxmin.curr.%H%Mlst.w2.png",
+            "utc": "0",
+            "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"]
+        },
+        {
+            "name": "Wave 600mb",
+            "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/press600.curr.%H%Mlst.w2.png",
+            "utc": "0",
+            "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"]
+        },
+        {
+            "name": "Surface Pressure",
+            "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
+            "utc": "1",
+            "times": ["0100+1", "1300+1"]
+        },
+        {
+            "name": "Sounding",
+            "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+1/%Y/%Y%m%d/sounding1.curr+1.%H%Mlst.w2.png",
+            "utc": "0",
+            "times": ["1400+1"],
+            "rawurl": "http://rasp.nz/rasp/regions/NZSOUTH_S+1/2020/20201113/sounding1.curr+1.1400lst.w2.png"
+        },
+        {
+            "name": "MetVuw tomorrow 1300 forecast issued at",
+            "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-030.gif",
+            "utc": "1",
+            "times": ["0100"]
+        },
+        {
+            "name": "MetVuw tomorrow 1300 forecast issued at",
+            "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-054.gif",
+            "utc": "1",
+            "times": ["0100"]
+        }
+    ]
+}
