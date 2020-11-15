@@ -1,0 +1,10 @@
+# My virtual environment
+wdl
+
+# IDE
+.vscode
+
+# My image download directories and presentations
+Images*
+*.ppt
+*.pptx
