@@ -5,6 +5,8 @@ wdl
 .vscode
 
 # My image download directories and presentations
-Images*
+Weather Images*
 *.ppt
 *.pptx
+
+*.json
