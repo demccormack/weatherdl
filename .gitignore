@@ -4,8 +4,11 @@ wdl
 # IDE
 .vscode
 
-# My image download directories and presentations
-Weather Images*
+# My image downloads and presentations
+*.jpg
+*.jpeg
+*.png
+*.gif
 *.ppt
 *.pptx
 
