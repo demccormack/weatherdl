@@ -1,12 +1,13 @@
 # My virtual environment
-wdl
+*venv
 
 # IDE
 .vscode
+
+# MacOS Finder
+.DS_Store
 
 # My image download directories and presentations
 Weather Images*
 *.ppt
 *.pptx
-
-*.json
