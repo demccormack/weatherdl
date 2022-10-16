@@ -52,7 +52,7 @@ class downloader(object):
                         successCount += 1
                     except Exception as e:
                         print(f"Failed to download - {str(e)} - {url}")
-                        failedItems.append(f"{name} --- {url}")
+                        failedItems.append(f"{basename} --- {url}")
         td = self.tz.fromutc(datetime.datetime.utcnow()) - self.startTime
         print(f"{successCount} images downloaded in {td}.\n\n{len(failedItems)} images failed:")
         for fail in failedItems:
