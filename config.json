@@ -21,19 +21,19 @@
         },
         {
             "name": "Webcam - Wanaka Waterfront",
-            "url": "https://www.lakewanaka.co.nz/assets/webcams/waterfront-cam/image%y-%m-%d_%H-%M-58.jpg",
+            "url": "https://images-webcams.windy.com/82/1590960482/current/full/1590960482.jpg",
             "utc": "0",
-            "times": ["0759", "0859"]
+            "times": [""]
         },
         {
             "name": "Webcam - Wanaka and Lindis Pass",
-            "url": "https://professionalsoaring.com/tools/webcam/cam1.jpg",
+            "url": "https://images-webcams.windy.com/87/1570750187/current/full/1570750187.jpg",
             "utc": "0",
             "times": [""]
         },
         {
             "name": "Webcam - Lake Wanaka",
-            "url": "https://professionalsoaring.com/tools/webcam/cam2.jpg",
+            "url": "https://images-webcams.windy.com/52/1570750452/current/full/1570750452.jpg",
             "utc": "0",
             "times": [""]
         },
@@ -51,7 +51,7 @@
         },
         {
             "name": "Webcam - Alexandra",
-            "url": "http://upload.aopa.nz/moutere.jpg",
+            "url": "https://public.aopa.nz/moutere.jpg",
             "utc": "0",
             "times": [""]
         },
@@ -63,13 +63,13 @@
         },
         {
             "name": "Webcam - Dansey's Pass",
-            "url": "http://upload.aopa.nz/danseys.jpg",
+            "url": "https://public.aopa.nz/danseys.jpg",
             "utc": "0",
             "times": [""]
         },
         {
             "name": "Webcam - Mt Nicholas Station",
-            "url": "http://upload.aopa.nz/mtnic.jpg",
+            "url": "https://public.aopa.nz/mtnic.jpg",
             "utc": "0",
             "times": [""]
         },
@@ -82,6 +82,18 @@
         {
             "name": "Webcam - Haast Pass",
             "url": "https://www.trafficnz.info/camera/738.jpg",
+            "utc": "0",
+            "times": [""]
+        },
+        {
+            "name": "Webcam - Harris Saddle",
+            "url": "https://www.metdata.net.nz/doc/harris/cam3/image.php",
+            "utc": "0",
+            "times": [""]
+        },
+        {
+            "name": "Webcam - Kepler Track",
+            "url": "https://www.metdata.net.nz/doc/kepler/cam1/image.php",
             "utc": "0",
             "times": [""]
         },
