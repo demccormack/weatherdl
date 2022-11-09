@@ -1,22 +1,22 @@
 import json
-import datetime
 import requests
-import os
-import magic
-import pytz
-import glob
+from datetime import datetime, timedelta
+from os import getcwd, mkdir, path
+from magic import from_buffer
+from pytz import timezone
+from glob import glob
 
 class downloader(object):
 
     def __init__(self):
-        configfile = open("config.json", "r")
-        self.config = json.loads(configfile.read())
-        configfile.close()
-        self.tz = pytz.timezone(self.config["timezone"])
-        self.startTime = self.tz.fromutc(datetime.datetime.utcnow())
-        self.imgDir = os.path.join(os.getcwd(), self.startTime.strftime("Weather Images %y%m%d"))
-        if not os.path.exists(self.imgDir):
-            os.mkdir(self.imgDir)
+        config_file = open("config.json", "r")
+        self.config = json.loads(config_file.read())
+        config_file.close()
+        self.time_zone = timezone(self.config["timezone"])
+        self.start_time = self.time_zone.fromutc(datetime.utcnow())
+        self.img_dir = path.join(getcwd(), self.start_time.strftime("Weather Images %y%m%d"))
+        if not path.exists(self.img_dir):
+            mkdir(self.img_dir)
         self.download()
 
     def download(self):
@@ -24,39 +24,43 @@ class downloader(object):
         Download the images
         """
         index = 0
-        successCount = 0
-        failedItems = []
+        success_count = 0
+        failed_items = []
         for item in self.config["items"]:
             for time in item["times"]:
                 index += 1
-                basename = f"{index:03d} {item['name']} {time}"
-                if len(glob.glob(f"{os.path.join(self.imgDir, basename)}*")) == 0:
+                basename = ' '.join(filter(None, [f"{index:03d}", item['name'], time]))
+                if len(glob(f"{path.join(self.img_dir, basename)}*")) == 0:
                     try:
-                        dt = self.startTime
+                        url_date_time = self.start_time
                         if len(time) > 0:
-                            dt = dt.replace(hour=int(time[0:2]), minute=int(time[2:4]))
-                            if len(time) > 4:
-                                dt = dt + datetime.timedelta(days=int(time[5:6]))
+                            url_date_time = url_date_time.replace(hour=int(time[0:2]), minute=int(time[2:4]))
+                        if len(time) > 4:
+                            url_date_time = url_date_time + timedelta(days=int(time[5:6]))
                         if int(item["utc"]):
-                            dt = dt - dt.utcoffset()
-                        url = dt.strftime(item["url"])
-                        myfile = requests.get(url)
-                        typ = magic.from_buffer(myfile.content, mime=True).split('/')
-                        ext = typ[1]
-                        name = f"{basename}.{ext}"
-                        path = os.path.join(self.imgDir, name)
-                        if typ[0] != "image":
+                            url_date_time = url_date_time - url_date_time.utcoffset()
+                        url = url_date_time.strftime(item["url"])
+
+                        buffer = requests.get(url)
+                        mime_type = from_buffer(buffer.content, mime=True).split('/')
+                        extension = mime_type[1]
+                        file_name = f"{basename}.{extension}"
+                        file_path = path.join(self.img_dir, file_name)
+                        if mime_type[0] != "image":
                             raise Exception("Not an image")
-                        open(path, "wb").write(myfile.content)
-                        print(f"Success! - {name}")
-                        successCount += 1
+                        
+                        open(file_path, "wb").write(buffer.content)
+
+                        print(f"Success! - {file_name}")
+                        success_count += 1
                     except Exception as e:
                         print(f"Failed to download - {str(e)} - {url}")
-                        failedItems.append(f"{basename} --- {url}")
-        td = self.tz.fromutc(datetime.datetime.utcnow()) - self.startTime
-        print(f"{successCount} images downloaded in {td}.\n\n{len(failedItems)} images failed:")
-        for fail in failedItems:
-            print(fail)
+                        failed_items.append(f"{basename} --- {url}")
+
+        time_taken = self.time_zone.fromutc(datetime.utcnow()) - self.start_time
+        print(f"{success_count} images downloaded in {time_taken}.\n\n{len(failed_items)} images failed:")
+        for failure in failed_items:
+            print(failure)
 
 if __name__ == "__main__":
     dl = downloader()
