@@ -5,6 +5,7 @@ from os import getcwd, mkdir, path
 from magic import from_buffer
 from pytz import timezone
 from glob import glob
+from pptx import Presentation
 
 class downloader(object):
 
@@ -62,5 +63,12 @@ class downloader(object):
         for failure in failed_items:
             print(failure)
 
+def create_presentation():
+    prs = Presentation()
+
+
+
+
 if __name__ == "__main__":
     dl = downloader()
+    create_presentation()
