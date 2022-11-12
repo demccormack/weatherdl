@@ -6,6 +6,8 @@ from os import getcwd, mkdir, path
 import requests
 from magic import from_buffer
 from pptx import Presentation
+from pptx.dml.color import RGBColor
+from pptx.util import Inches, Pt
 from pytz import timezone
 
 
@@ -75,6 +77,23 @@ class downloader(object):
 
 def create_presentation():
     prs = Presentation()
+    layout = prs.slide_layouts[5]
+    slide = prs.slides.add_slide(layout)
+
+    fill = slide.background.fill
+    fill.solid()
+    fill.fore_color.rgb = RGBColor(0, 34, 102)
+
+    title = slide.shapes.title.text_frame.paragraphs[0].add_run()
+    title.text = 'Webcam - Lake Wanaka'
+    title.font.size = Pt(28)
+    title.font.bold = True
+    title.font.color.rgb = RGBColor(25, 102, 255)
+
+    img_path = '/Users/dmccormack/Documents/Code/weatherdl/Weather Images 221109/012 Webcam - Lake Wanaka .jpeg'
+    pic = slide.shapes.add_picture(img_path, Inches(0), Inches(1.5), width=prs.slide_width)
+    
+    prs.save('test.pptx')
 
 
 if __name__ == "__main__":
