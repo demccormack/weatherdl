@@ -1,5 +1,6 @@
-# My virtual environment
+# Python
 *venv
+__pycache__
 
 # IDE
 .vscode
@@ -7,7 +8,7 @@
 # MacOS Finder
 .DS_Store
 
-# My image download directories and presentations
+# Image download directories and presentations
 Weather Images*
 *.ppt
 *.pptx
