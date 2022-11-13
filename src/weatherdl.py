@@ -70,9 +70,11 @@ class downloader(object):
         time_taken = self.time_zone.fromutc(
             datetime.utcnow()) - self.start_time
         print(
-            f"{success_count} images downloaded in {time_taken}.\n\n{len(failed_items)} images failed:")
-        for failure in failed_items:
-            print(failure)
+            f"{success_count} images downloaded in {time_taken}.\n")
+        if failed_items:
+            print(f"{len(failed_items)} images failed:")
+            for failure in failed_items:
+                print(failure)
 
 
 def create_presentation():
