@@ -48,8 +48,10 @@ class downloader(object):
                         file_path = path.join(self.img_dir, file_name)
                         if mime_type[0] != "image":
                             raise Exception("Not an image")
-                        
-                        open(file_path, "wb").write(buffer.content)
+
+                        file = open(file_path, "wb")
+                        file.write(buffer.content)
+                        file.close()
 
                         print(f"Success! - {file_name}")
                         success_count += 1
