@@ -189,7 +189,7 @@
             "times": ["0100"]
         },
         {
-            "name": "MetVuw tomorrow 1300 forecast issued at",
+            "name": "MetVuw day after tomorrow 1300 forecast issued at",
             "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-060.gif",
             "utc": "1",
             "times": ["0100"]
