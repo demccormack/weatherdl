@@ -142,8 +142,7 @@
         {
             "name": "Sounding",
             "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+1/%Y/%Y%m%d/sounding1.curr+1.%H%Mlst.w2.png",
-            "times": ["1400+1"],
-            "rawurl": "http://rasp.nz/rasp/regions/NZSOUTH_S+1/2020/20201113/sounding1.curr+1.1400lst.w2.png"
+            "times": ["1400+1"]
         },
         {
             "name": "MetVuw tomorrow 1300 forecast issued at",
