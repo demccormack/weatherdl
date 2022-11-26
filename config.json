@@ -22,80 +22,67 @@
         {
             "name": "Webcam - Wanaka Waterfront",
             "url": "https://images-webcams.windy.com/82/1590960482/current/full/1590960482.jpg",
-            "utc": "0",
-            "times": [""]
+            "utc": "0"
         },
         {
             "name": "Webcam - Wanaka and Lindis Pass",
             "url": "https://images-webcams.windy.com/87/1570750187/current/full/1570750187.jpg",
-            "utc": "0",
-            "times": [""]
+            "utc": "0"
         },
         {
             "name": "Webcam - Lake Wanaka",
             "url": "https://images-webcams.windy.com/52/1570750452/current/full/1570750452.jpg",
-            "utc": "0",
-            "times": [""]
+            "utc": "0"
         },
         {
             "name": "Webcam - Lake Pukaki",
             "url": "http://snowgrass.co.nz/cust/lakestone/images/webcam.jpg",
-            "utc": "0",
-            "times": [""]
+            "utc": "0"
         },
         {
             "name": "Webcam - Tekapo",
             "url": "http://www.tekapotourism.co.nz/webcam/images/north_east.jpg",
-            "utc": "0",
-            "times": [""]
+            "utc": "0"
         },
         {
             "name": "Webcam - Alexandra",
             "url": "https://public.aopa.nz/moutere.jpg",
-            "utc": "0",
-            "times": [""]
+            "utc": "0"
         },
         {
             "name": "Webcam - Cromwell",
             "url": "http://snowgrass.co.nz/cust/cromwell/images/webcam.jpg",
-            "utc": "0",
-            "times": [""]
+            "utc": "0"
         },
         {
             "name": "Webcam - Dansey's Pass",
             "url": "https://public.aopa.nz/danseys.jpg",
-            "utc": "0",
-            "times": [""]
+            "utc": "0"
         },
         {
             "name": "Webcam - Mt Nicholas Station",
             "url": "https://public.aopa.nz/mtnic.jpg",
-            "utc": "0",
-            "times": [""]
+            "utc": "0"
         },
         {
             "name": "Webcam - Glenorchy",
             "url": "http://www.snowgrass.co.nz/cust/glenorchy_air/images/webcam.jpg",
-            "utc": "0",
-            "times": [""]
+            "utc": "0"
         },
         {
             "name": "Webcam - Haast Pass",
             "url": "https://www.trafficnz.info/camera/738.jpg",
-            "utc": "0",
-            "times": [""]
+            "utc": "0"
         },
         {
             "name": "Webcam - Harris Saddle",
             "url": "https://www.metdata.net.nz/doc/harris/cam3/image.php",
-            "utc": "0",
-            "times": [""]
+            "utc": "0"
         },
         {
             "name": "Webcam - Kepler Track",
             "url": "https://www.metdata.net.nz/doc/kepler/cam1/image.php",
-            "utc": "0",
-            "times": [""]
+            "utc": "0"
         },
         {
             "name": "Surface Pressure",

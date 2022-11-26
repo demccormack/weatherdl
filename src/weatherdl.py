@@ -32,7 +32,7 @@ class downloader(object):
         success_count = 0
         failed_items = []
         for item in self.config["items"]:
-            for time in item["times"]:
+            for time in item.get("times", [""]):
                 index += 1
                 basename = ' '.join(
                     filter(None, [f"{index:03d}", item['name'], time]))
