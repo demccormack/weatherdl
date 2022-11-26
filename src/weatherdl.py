@@ -45,7 +45,7 @@ class downloader(object):
                         if len(time) > 4:
                             url_date_time = url_date_time + \
                                 timedelta(days=int(time[5:6]))
-                        if int(item["utc"]):
+                        if item.get("utc"):
                             url_date_time = url_date_time - url_date_time.utcoffset()
                         url = url_date_time.strftime(item["url"])
 
