@@ -6,19 +6,22 @@
             "name": "Surface Pressure",
             "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
             "utc": true,
-            "times": ["0100", "0700"]
+            "times": ["0100", "0700"],
+            "show_by_default": true
         },
         {
             "name": "Infrared",
             "url": "https://www.metservice.com/publicData/australiaInfraredColourImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
             "utc": true,
-            "times": ["0600", "0700", "0800", "0900"]
+            "times": ["0600", "0700", "0800", "0900"],
+            "show_by_default": true
         },
         {
             "name": "Visible",
             "url": "https://www.metservice.com/publicData/nzVisibleSatelliteImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
             "utc": true,
-            "times": ["0700", "0800", "0900"]
+            "times": ["0700", "0800", "0900"],
+            "show_by_default": true
         },
         {
             "name": "Webcam - Wanaka Waterfront",
@@ -76,20 +79,23 @@
             "name": "Surface Pressure",
             "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
             "utc": true,
-            "times": ["1300"]
+            "times": ["1300"],
+            "show_by_default": true
         },
         {
             "name": "MetVuw 1300 forecast issued at",
             "image_includes_caption": true,
             "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-012.gif",
             "utc": true,
-            "times": ["0100"]
+            "times": ["0100"],
+            "show_by_default": true
         },
         {
             "name": "Sounding",
             "image_includes_caption": true,
             "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/sounding1.curr.%H%Mlst.w2.png",
-            "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"]
+            "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"],
+            "show_by_default": true
         },
         {
             "name": "Surface Sun",
@@ -149,27 +155,31 @@
             "name": "Surface Pressure",
             "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
             "utc": true,
-            "times": ["0100+1", "1300+1"]
+            "times": ["0100+1", "1300+1"],
+            "show_by_default": true
         },
         {
             "name": "Sounding",
             "image_includes_caption": true,
             "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+1/%Y/%Y%m%d/sounding1.curr+1.%H%Mlst.w2.png",
-            "times": ["1400+1"]
+            "times": ["1400+1"],
+            "show_by_default": true
         },
         {
             "name": "MetVuw tomorrow 1300 forecast issued at",
             "image_includes_caption": true,
             "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-036.gif",
             "utc": true,
-            "times": ["0100"]
+            "times": ["0100"],
+            "show_by_default": true
         },
         {
             "name": "MetVuw day after tomorrow 1300 forecast issued at",
             "image_includes_caption": true,
             "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-060.gif",
             "utc": true,
-            "times": ["0100"]
+            "times": ["0100"],
+            "show_by_default": true
         }
     ]
 }
