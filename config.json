@@ -4,19 +4,19 @@
         {
             "name": "Surface Pressure",
             "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
-            "utc": "1",
+            "utc": true,
             "times": ["0100", "0700"]
         },
         {
             "name": "Infrared",
             "url": "https://www.metservice.com/publicData/australiaInfraredColourImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
-            "utc": "1",
+            "utc": true,
             "times": ["0600", "0700", "0800", "0900"]
         },
         {
             "name": "Visible",
             "url": "https://www.metservice.com/publicData/nzVisibleSatelliteImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
-            "utc": "1",
+            "utc": true,
             "times": ["0700", "0800", "0900"]
         },
         {
@@ -74,13 +74,13 @@
         {
             "name": "Surface Pressure",
             "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
-            "utc": "1",
+            "utc": true,
             "times": ["1300"]
         },
         {
             "name": "MetVuw 1300 forecast issued at",
             "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-012.gif",
-            "utc": "1",
+            "utc": true,
             "times": ["0100"]
         },
         {
@@ -136,7 +136,7 @@
         {
             "name": "Surface Pressure",
             "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
-            "utc": "1",
+            "utc": true,
             "times": ["0100+1", "1300+1"]
         },
         {
@@ -147,13 +147,13 @@
         {
             "name": "MetVuw tomorrow 1300 forecast issued at",
             "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-036.gif",
-            "utc": "1",
+            "utc": true,
             "times": ["0100"]
         },
         {
             "name": "MetVuw day after tomorrow 1300 forecast issued at",
             "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-060.gif",
-            "utc": "1",
+            "utc": true,
             "times": ["0100"]
         }
     ]
