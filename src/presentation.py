@@ -66,8 +66,10 @@ def create_pptx_from_images(dir, data):
                     space = prs.slide_height - pic.height
                     if space > max_top_gap:
                         pic.top = max_top_gap
-                
-            if not file_name or not item.get("show_by_default"):
+
+            show_by_default = item.get("show_by_default") and (item.get(
+                "show_by_default") == True or item.get("show_by_default").count(time) > 0)
+            if not (file_name and show_by_default):
                 slide._element.set('show', '0')
 
     prs.save('test.pptx')

@@ -95,7 +95,7 @@
             "image_includes_caption": true,
             "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/sounding1.curr.%H%Mlst.w2.png",
             "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"],
-            "show_by_default": true
+            "show_by_default": ["1300", "1500", "1700"]
         },
         {
             "name": "Surface Sun",
