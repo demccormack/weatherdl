@@ -90,4 +90,4 @@ def download_images(config):
 if __name__ == "__main__":
     config = config("config.json")
     download_images(config)
-    create_pptx_from_images(config.img_dir)
+    create_pptx_from_images(config.img_dir, config.read("items"))

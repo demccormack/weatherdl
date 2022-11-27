@@ -80,57 +80,68 @@
         },
         {
             "name": "MetVuw 1300 forecast issued at",
+            "image_includes_caption": true,
             "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-012.gif",
             "utc": true,
             "times": ["0100"]
         },
         {
             "name": "Sounding",
+            "image_includes_caption": true,
             "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/sounding1.curr.%H%Mlst.w2.png",
             "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"]
         },
         {
             "name": "Surface Sun",
+            "image_includes_caption": true,
             "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/sfcsunpct.curr.%H%Mlst.w2.png",
             "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"]
         },
         {
             "name": "Rain",
+            "image_includes_caption": true,
             "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/rain1.curr.%H%Mlst.w2.png",
             "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"]
         },
         {
             "name": "Surface Wind",
+            "image_includes_caption": true,
             "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/sfcwind.curr.%H%Mlst.w2.png",
             "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"]
         },
         {
             "name": "Thermalling Height",
+            "image_includes_caption": true,
             "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/hglider.curr.%H%Mlst.w2.png",
             "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"]
         },
         {
             "name": "Thermal Strength",
+            "image_includes_caption": true,
             "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/wstar_bsratio.curr.%H%Mlst.w2.png",
             "times": ["1500"]
         },
         {
             "name": "Cumulus Cloudbase",
+            "image_includes_caption": true,
             "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/zsfclclmask.curr.%H%Mlst.w2.png",
             "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"]
         },
         {
             "name": "OD Cloudbase",
+            "image_includes_caption": true,
             "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/zblclmask.curr.%H%Mlst.w2.png",
             "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"]
         },
         {
             "name": "Convergence",
+            "image_includes_caption": true,
             "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/wblmaxmin.curr.%H%Mlst.w2.png",
             "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"]
         },
         {
             "name": "Wave 600mb",
+            "image_includes_caption": true,
             "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/press600.curr.%H%Mlst.w2.png",
             "times": ["1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900"]
         },
@@ -142,17 +153,20 @@
         },
         {
             "name": "Sounding",
+            "image_includes_caption": true,
             "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+1/%Y/%Y%m%d/sounding1.curr+1.%H%Mlst.w2.png",
             "times": ["1400+1"]
         },
         {
             "name": "MetVuw tomorrow 1300 forecast issued at",
+            "image_includes_caption": true,
             "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-036.gif",
             "utc": true,
             "times": ["0100"]
         },
         {
             "name": "MetVuw day after tomorrow 1300 forecast issued at",
+            "image_includes_caption": true,
             "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-060.gif",
             "utc": true,
             "times": ["0100"]
