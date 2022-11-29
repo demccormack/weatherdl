@@ -3,6 +3,12 @@
     "working_dir": "Weather Images %y%m%d",
     "items": [
         {
+            "name": "Title Slide",
+            "path": "title_slides.pptx",
+            "source_slide_number": 1,
+            "show_by_default": true
+        },
+        {
             "name": "Surface Pressure",
             "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
             "utc": true,
