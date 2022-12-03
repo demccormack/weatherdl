@@ -1,4 +1,5 @@
-from .context import presentation
+import presentation
+import weatherdl
 
 
 def test_it_returns_name_if_unused():
