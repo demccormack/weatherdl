@@ -80,4 +80,12 @@ def save_safely(pres, dest):
     pres.save(unused_file_name_like(file, listdir(dir)))
 
 def unused_file_name_like(name, dir_listing):
-    return 'no'
+    if name not in dir_listing:
+        return name
+    
+    i = 1
+    parts = path.splitext(name)
+    while ''.join([f"{parts[0]} ({i})", parts[1]]) in dir_listing:
+        i = i + 1
+    
+    return ''.join([f"{parts[0]} ({i})", parts[1]])
