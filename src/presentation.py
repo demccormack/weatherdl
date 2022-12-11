@@ -72,12 +72,13 @@ def create_pptx_from_images(dir, data):
             if not (file_name and show_by_default):
                 slide._element.set('show', '0')
 
-    save_safely(prs, 'test.pptx')
+    save_safely(prs, path.join(dir, 'briefing.pptx'))
 
 def save_safely(pres, dest):
     dir = path.dirname(dest)
     file = path.basename(dest)
-    pres.save(unused_file_name_like(file, listdir(dir)))
+    name = unused_file_name_like(file, listdir(dir))
+    pres.save(path.join(dir, name))
 
 def unused_file_name_like(name, dir_listing):
     if name not in dir_listing:
