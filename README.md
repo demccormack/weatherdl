@@ -1,5 +1,5 @@
 # Weather Downloader
-This script downloads all the images required for a weather briefing in Omarama, New Zealand. They can then be imported into PowerPoint.
+This script downloads all the images required for a weather briefing in Omarama, New Zealand, and builds a PPTX file pre-populated with those images.
 
 ## Quick Start
 
