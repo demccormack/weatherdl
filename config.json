@@ -56,6 +56,10 @@
             "url": "https://public.aopa.nz/danseys.jpg"
         },
         {
+            "name": "Webcam - Coronet Peak",
+            "url": "https://images-webcams.windy.com/49/1661723449/current/full/1661723449.jpg"
+        },
+        {
             "name": "Webcam - Mt Nicholas Station",
             "url": "https://public.aopa.nz/mtnic.jpg"
         },
@@ -68,12 +72,24 @@
             "url": "https://www.trafficnz.info/camera/738.jpg"
         },
         {
-            "name": "Webcam - Harris Saddle",
+            "name": "Webcam - Harris Saddle looking W",
+            "url": "https://www.metdata.net.nz/doc/harris/cam1/image.php"
+        },
+        {
+            "name": "Webcam - Harris Saddle looking NE",
             "url": "https://www.metdata.net.nz/doc/harris/cam3/image.php"
         },
         {
             "name": "Webcam - Kepler Track",
             "url": "https://www.metdata.net.nz/doc/kepler/cam1/image.php"
+        },
+        {
+            "name": "Webcam - MacKinnon Pass looking S",
+            "url": "https://metdata.net.nz/doc/mackinnon/cam1/image.php"
+        },
+        {
+            "name": "Webcam - Milford Sound",
+            "url": "https://www.southerndiscoveries.co.nz/sdlmlf.jpg"
         },
         {
             "name": "Surface Pressure",
