@@ -10,5 +10,6 @@ __pycache__
 
 # Image download directories and presentations
 Weather Images*
-*.ppt
-*.pptx
+
+# Old presentations and slides for manual adjustments
+archive
