@@ -1,7 +1,7 @@
 import json
 from datetime import datetime, timedelta
 from glob import glob
-from os import getcwd, mkdir, path
+from os import mkdir, path
 
 import requests
 from magic import from_buffer
@@ -19,8 +19,9 @@ class config(object):
 
         self.time_zone = timezone(self.read("time_zone"))
         self.start_time = self.time_zone.fromutc(datetime.utcnow())
-        
-        img_dir_path = path.join(path.expanduser('~'), *self.read("working_dir"))
+
+        img_dir_path = path.join(path.expanduser(
+            '~'), *self.read("working_dir"))
         self.img_dir = self.start_time.strftime(img_dir_path)
 
     def read(self, key):
