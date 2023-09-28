@@ -1,6 +1,6 @@
 {
     "time_zone": "Pacific/Auckland",
-    "working_dir": "Weather Images %y%m%d",
+    "working_dir": ["Desktop", "Weather Images %y%m%d"],
     "items": [
         {
             "name": "Surface Pressure",

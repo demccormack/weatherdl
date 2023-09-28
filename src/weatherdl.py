@@ -19,7 +19,9 @@ class config(object):
 
         self.time_zone = timezone(self.read("time_zone"))
         self.start_time = self.time_zone.fromutc(datetime.utcnow())
-        self.img_dir = self.start_time.strftime(self.read("working_dir"))
+        
+        img_dir_path = path.join(path.expanduser('~'), *self.read("working_dir"))
+        self.img_dir = self.start_time.strftime(img_dir_path)
 
     def read(self, key):
         return self.config[key]
