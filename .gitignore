@@ -13,3 +13,7 @@ Weather Images*
 
 # Old presentations and slides for manual adjustments
 archive
+
+# PyInstaller
+build
+dist
