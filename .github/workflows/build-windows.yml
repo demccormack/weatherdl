@@ -18,9 +18,10 @@ jobs:
 
           $url = 'https://files.pythonhosted.org/packages/07/c2/094e3d62b906d952537196603a23aec4bcd7c6126bf80eb14e6f9f4be3a2/python_magic_bin-0.4.14-py2.py3-none-win_amd64.whl'
           $dest = 'python_magic_bin-0.4.14-py2.py3-none-win_amd64.whl'
+          Write-Host "Downloading from $url"
           Invoke-WebRequest -Uri $url -OutFile $dest
-          
-          if ((Get-FileHash -Path $dest -Algorithm SHA256).Hash -ne '123') {
+
+          if ((Get-FileHash -Path $dest -Algorithm SHA256).Hash -ne '90BE6206AD31071A36065A2FC169C5AFB5E0355CBE6030E87641C6C62EDC2B69') {
               Write-Error 'Checksum does not match'
               exit 1
           }
