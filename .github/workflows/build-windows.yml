@@ -19,6 +19,11 @@ jobs:
           $url = 'https://files.pythonhosted.org/packages/07/c2/094e3d62b906d952537196603a23aec4bcd7c6126bf80eb14e6f9f4be3a2/python_magic_bin-0.4.14-py2.py3-none-win_amd64.whl'
           $dest = 'python_magic_bin-0.4.14-py2.py3-none-win_amd64.whl'
           Invoke-WebRequest -Uri $url -OutFile $dest
+          
+          if ((Get-FileHash -Path $dest -Algorithm SHA256).Hash -ne '123') {
+              Write-Error 'Checksum does not match'
+              exit 1
+          }
 
           python -m pip install $dest
       - name: Build for Windows
