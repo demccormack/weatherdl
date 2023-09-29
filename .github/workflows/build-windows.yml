@@ -1,0 +1,13 @@
+name: Build for Windows
+on: push
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Build for Windows
+        run: |
+          python -m venv venv
+          .\venv\Scripts\Activate.ps1
+          python -m pip install -r requirements-prod.txt -r requirements-build.txt
