@@ -6,8 +6,16 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      - name: Build for Windows
+      - name: Set up build environment
         run: |
           python -m venv venv
           .\venv\Scripts\Activate.ps1
           python -m pip install -r requirements-prod.txt -r requirements-build.txt
+      - name: Build for Windows
+        run: |
+          .\venv\Scripts\Activate.ps1
+          python -m PyInstaller src\weatherdl.py
+      - name: Copy config files
+        run: |
+          Copy-Item config.json dist\weatherdl
+
