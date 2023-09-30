@@ -1,0 +1,41 @@
+name: Publish Ubuntu release
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-for-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Set up build environment
+        run: |
+          python3 -m venv venv
+          source venv/bin/activate
+          python3 -m pip install -r requirements-prod.txt -r requirements-build.txt
+
+      - name: Build for Ubuntu
+        run: |
+          source venv/bin/activate
+          python3 -m PyInstaller --onefile --add-data "venv/lib/*/site-packages/pptx/templates:pptx/templates" src/weatherdl.py
+
+      - name: Copy config files
+        run: |
+          cp config.json dist
+
+      - name: Produce artifacts
+        run: |
+          zip weatherdl-for-ubuntu.zip dist/*
+
+      - name: Upload artifacts to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: weatherdl-for-ubuntu.zip
+          asset_name: weatherdl-for-ubuntu.zip
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: ""
