@@ -1,7 +1,7 @@
 import json
 from datetime import datetime, timedelta
 from glob import glob
-from os import getcwd, mkdir, path
+from os import mkdir, path
 
 import requests
 from magic import from_buffer
@@ -19,7 +19,10 @@ class config(object):
 
         self.time_zone = timezone(self.read("time_zone"))
         self.start_time = self.time_zone.fromutc(datetime.utcnow())
-        self.img_dir = self.start_time.strftime(self.read("working_dir"))
+
+        img_dir_path = path.join(path.expanduser(
+            '~'), *self.read("working_dir"))
+        self.img_dir = self.start_time.strftime(img_dir_path)
 
     def read(self, key):
         return self.config[key]
@@ -91,3 +94,4 @@ if __name__ == "__main__":
     config = config("config.json")
     download_images(config)
     create_pptx_from_images(config.img_dir, config.read("items"))
+    input("\nPress Enter to finish")

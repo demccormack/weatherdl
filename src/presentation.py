@@ -10,6 +10,7 @@ text_color = RGBColor(230, 191, 0)
 
 
 def create_pptx_from_images(dir, data):
+    print("\nBuilding presentation")
     prs = Presentation()
 
     layout_with_title = prs.slide_layouts[5]
@@ -74,19 +75,23 @@ def create_pptx_from_images(dir, data):
 
     save_safely(prs, path.join(dir, 'briefing.pptx'))
 
+
 def save_safely(pres, dest):
     dir = path.dirname(dest)
     file = path.basename(dest)
     name = unused_file_name_like(file, listdir(dir))
-    pres.save(path.join(dir, name))
+    full_path = path.join(dir, name)
+    pres.save(full_path)
+    print(f"Presentation saved to '{full_path}'")
+
 
 def unused_file_name_like(name, dir_listing):
     if name not in dir_listing:
         return name
-    
+
     i = 1
     parts = path.splitext(name)
     while ''.join([f"{parts[0]} ({i})", parts[1]]) in dir_listing:
         i = i + 1
-    
+
     return ''.join([f"{parts[0]} ({i})", parts[1]])
