@@ -1,7 +1,7 @@
-name: Build for Windows
+name: Publish
 on: push
 jobs:
-  build:
+  build-for-windows:
     runs-on: windows-latest
     steps:
       - name: Check out repository code
@@ -34,8 +34,15 @@ jobs:
       - name: Copy config files
         run: |
           Copy-Item config.json dist
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+      - name: Produce artifacts
+        run: |
+          Compress-Archive -Path dist\* -DestinationPath weatherdl-for-windows.zip
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
         with:
-          name: weatherdl-for-windows
-          path: dist\*
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: weatherdl-for-windows.zip
+          asset_name: weatherdl-for-windows.zip
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: ""
