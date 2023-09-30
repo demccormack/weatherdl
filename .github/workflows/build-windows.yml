@@ -30,7 +30,7 @@ jobs:
       - name: Build for Windows
         run: |
           .\venv\Scripts\Activate.ps1
-          python -m PyInstaller src\weatherdl.py
+          python -m PyInstaller --add-data 'venv\Lib\site-packages\pptx\templates:pptx\templates' src\weatherdl.py
       - name: Copy config files
         run: |
           Copy-Item config.json dist\weatherdl
