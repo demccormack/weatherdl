@@ -94,3 +94,4 @@ if __name__ == "__main__":
     config = config("config.json")
     download_images(config)
     create_pptx_from_images(config.img_dir, config.read("items"))
+    input("\nPress Enter to finish")
