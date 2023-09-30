@@ -1,5 +1,9 @@
-name: Publish
-on: push
+name: Publish Windows release
+on:
+  push:
+    tags:
+      - "v*"
+
 jobs:
   build-for-windows:
     runs-on: windows-latest
