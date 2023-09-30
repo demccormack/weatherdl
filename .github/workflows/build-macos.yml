@@ -20,7 +20,7 @@ jobs:
       - name: Build for MacOS
         run: |
           source venv/bin/activate
-          python3 -m PyInstaller --onefile --add-data 'venv/lib/python3.11/site-packages/pptx/templates:pptx/templates' src/weatherdl.py
+          python3 -m PyInstaller --onefile --add-data "venv/lib/*/site-packages/pptx/templates:pptx/templates" src/weatherdl.py
 
       - name: Copy config files
         run: |
