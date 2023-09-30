@@ -30,12 +30,12 @@ jobs:
       - name: Build for Windows
         run: |
           .\venv\Scripts\Activate.ps1
-          python -m PyInstaller --add-data 'venv\Lib\site-packages\pptx\templates:pptx\templates' src\weatherdl.py
+          python -m PyInstaller --onefile --add-data 'venv\Lib\site-packages\pptx\templates:pptx\templates' src\weatherdl.py
       - name: Copy config files
         run: |
-          Copy-Item config.json dist\weatherdl
+          Copy-Item config.json dist
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: weatherdl-for-windows
-          path: dist\weatherdl\*
+          path: dist\*
