@@ -34,11 +34,8 @@ jobs:
       - name: Copy config files
         run: |
           Copy-Item config.json dist\weatherdl
-      - name: Produce artifacts
-        run: |
-          Compress-Archive -Path dist\weatherdl\* -DestinationPath weatherdl.zip
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: Windows executable
-          path: weatherdl.zip
+          name: weatherdl-for-windows
+          path: dist\weatherdl\*
