@@ -3,3 +3,6 @@ addopts = [
     "--import-mode=importlib",
 ]
 pythonpath = "src"
+
+[tool.pylint.'tests/*.py']
+disable = ["import-error", "missing-function-docstring", "missing-module-docstring"]
