@@ -1,0 +1,10 @@
+{
+    "time_zone": "Pacific/Auckland",
+    "working_dir": ["Desktop", "Weather Images %y%m%d"],
+    "items": [
+        {
+            "name": "Flying to Mt Cook",
+            "url": "https://raw.githubusercontent.com/demccormack/weatherdl/master/tests/fixtures/sample.jpg"
+        }
+    ]
+}
