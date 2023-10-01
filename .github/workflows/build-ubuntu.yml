@@ -10,12 +10,16 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
+      
+      - name: Negotiate Python package hell
+        run: |
+          sed -i '/python-magic-bin/d' requirements-prod.txt
+          apt install -y libmagic-dev
 
       - name: Set up build environment
         run: |
           python3 -m venv venv
           source venv/bin/activate
-          sed -i '/python-magic-bin/d' requirements-build.txt
           python3 -m pip install -r requirements-prod.txt -r requirements-build.txt
 
       - name: Build for Ubuntu
