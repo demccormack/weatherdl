@@ -41,7 +41,7 @@
         },
         {
             "name": "Webcam - Tekapo",
-            "url": "http://www.tekapotourism.co.nz/webcam/images/north_east.jpg"
+            "url": "https://tekapotourism.nz/webcam/north_east.html"
         },
         {
             "name": "Webcam - Alexandra",
@@ -60,8 +60,12 @@
             "url": "https://images-webcams.windy.com/49/1661723449/current/full/1661723449.jpg"
         },
         {
-            "name": "Webcam - Mt Nicholas Station",
-            "url": "https://public.aopa.nz/mtnic.jpg"
+            "name": "Webcam - Mt Nicholas looking N",
+            "url": "https://public.aopa.nz/mtnicgy.jpg"
+        },
+        {
+            "name": "Webcam - Mt Nicholas looking E",
+            "url": "https://public.aopa.nz/mtnicqn.jpg"
         },
         {
             "name": "Webcam - Glenorchy",
