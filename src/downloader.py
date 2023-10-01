@@ -5,8 +5,16 @@ from os import mkdir, path
 import requests
 from magic import from_buffer
 
+# pylint: disable=missing-function-docstring
+
 
 class Downloader:
+    """
+    Class for downloading images from specified sources using configurations.
+
+    Attributes:
+        config (ApplicationConfig)
+    """
 
     def __init__(self, config):
         self.config = config

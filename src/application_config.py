@@ -6,6 +6,18 @@ from pytz import timezone
 
 
 class ApplicationConfig:
+    """
+    Class for managing application configuration settings.
+
+    Attributes:
+        config (dict): A dictionary containing the configuration settings.
+        time_zone (string): User's time zone
+        start_time (string): Time the application was started.
+          This is calculated, not read from JSON.
+        img_dir (string): Directory to download images to.
+          Substitutes the start_time if configured (see readme).
+        items (array): The items to be downloaded. See the readme.
+    """
 
     def __init__(self, config_file_path):
         config_file = open(config_file_path, "r")
