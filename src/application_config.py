@@ -25,12 +25,9 @@ class ApplicationConfig:
         config_file.close()
 
         home = path.expanduser('~')
-        img_dir_path = path.join(home, *self.read("working_dir"))
+        img_dir_path = path.join(home, *self.config["working_dir"])
 
-        self.time_zone = timezone(self.read("time_zone"))
+        self.time_zone = timezone(self.config["time_zone"])
         self.start_time = self.time_zone.fromutc(datetime.utcnow())
         self.img_dir = self.start_time.strftime(img_dir_path)
-        self.items = self.read("items")
-
-    def read(self, key):
-        return self.config[key]
+        self.items = self.config["items"]
