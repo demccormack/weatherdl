@@ -10,7 +10,7 @@ from pytz import timezone
 from presentation import create_pptx_from_images
 
 
-class config(object):
+class ApplicationConfig(object):
 
     def __init__(self, config_file_path):
         config_file = open(config_file_path, "r")
@@ -93,7 +93,7 @@ def download_images(config):
 
 
 if __name__ == "__main__":
-    config = config("config.json")
+    config = ApplicationConfig("config.json")
     download_images(config)
     create_pptx_from_images(config.img_dir, config.read("items"))
     input("\nPress Enter to finish")
