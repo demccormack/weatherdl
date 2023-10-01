@@ -1,3 +1,4 @@
+# pylint: disable=missing-module-docstring
 from datetime import datetime, timedelta
 from glob import glob
 from os import mkdir, path
@@ -13,7 +14,9 @@ class Downloader:
     Class for downloading images from specified sources using configurations.
 
     Attributes:
-        config (ApplicationConfig)
+        config (ApplicationConfig): Configuration object
+        success_count (integer): Number of images downloaded
+        failed_items (array): Details of images which failed to download
     """
 
     def __init__(self, config):
@@ -75,9 +78,9 @@ class Downloader:
 
                     buffer = None
                     try:
-                        buffer = requests.get(url)
-                    except Exception as e:
-                        self.handle_unavailable_image(e, basename, url)
+                        buffer = requests.get(url, timeout=5)
+                    except Exception as error:  # pylint: disable=broad-except
+                        self.handle_unavailable_image(error, basename, url)
                         continue
 
                     mime_type = from_buffer(
