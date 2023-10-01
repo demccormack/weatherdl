@@ -26,5 +26,5 @@ python -m pip install -r requirements-prod.txt -r requirements-dev.txt
 
 ### Run the script
 ```
-python3 src/weatherdl.py
+python3 src/main.py
 ```
