@@ -57,10 +57,12 @@ def download_images(config):
                     url_date_time = url_date_time - url_date_time.utcoffset()
                 url = url_date_time.strftime(item["url"])
 
+                buffer = None
                 try:
                     buffer = requests.get(url)
                 except Exception as e:
                     handle_unavailable_image(e, basename, url)
+                    continue
 
                 mime_type = from_buffer(
                     buffer.content, mime=True).split('/')
