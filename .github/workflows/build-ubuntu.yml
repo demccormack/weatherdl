@@ -14,7 +14,6 @@ jobs:
       - name: Negotiate Python package hell
         run: |
           sed -i '/python-magic-bin/d' requirements-prod.txt
-          apt install -y libmagic-dev
 
       - name: Set up build environment
         run: |
