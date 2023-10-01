@@ -24,7 +24,7 @@ jobs:
       - name: Build for Ubuntu
         run: |
           source venv/bin/activate
-          python3 -m PyInstaller --onefile --add-data "venv/lib/*/site-packages/pptx/templates:pptx/templates" src/main.py
+          python3 -m PyInstaller -n weatherdl --onefile --add-data "venv/lib/*/site-packages/pptx/templates:pptx/templates" src/main.py
 
       - name: Copy config files
         run: |
