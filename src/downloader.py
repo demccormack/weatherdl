@@ -19,7 +19,7 @@ class Downloader:
 
     def file_exists_with_basename(self, basename):
         allowed_names = f"{path.join(self.config.img_dir, basename)}*"
-        return len(glob(allowed_names)) == 0
+        return len(glob(allowed_names)) > 0
 
     def is_provided(self, time):
         return len(time) > 0
