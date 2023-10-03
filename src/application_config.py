@@ -20,9 +20,8 @@ class ApplicationConfig:
     """
 
     def __init__(self, config_file_path):
-        config_file = open(config_file_path, "r")
-        self.config = json.loads(config_file.read())
-        config_file.close()
+        with open(config_file_path, "r") as config_file:
+            self.config = json.loads(config_file.read())
 
         home = path.expanduser('~')
         img_dir_path = path.join(home, *self.config["working_dir"])

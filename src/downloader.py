@@ -66,9 +66,8 @@ class Downloader:
             file_name = f"{basename}.{extension}"
             file_path = path.join(self.config.img_dir, file_name)
 
-            file = open(file_path, "wb")
-            file.write(buffer.content)
-            file.close()
+            with open(file_path, "wb") as file:
+                file.write(buffer.content)
 
             print(f"Success! - {file_name}")
             self.success_count += 1
