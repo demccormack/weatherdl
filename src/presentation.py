@@ -9,7 +9,7 @@ background_color = RGBColor(0, 34, 102)
 text_color = RGBColor(230, 191, 0)
 
 
-def create_pptx_from_images(img_dir, data):
+def create_pptx_from_images(img_dir, items):
     print("\nBuilding presentation")
     prs = Presentation()
 
@@ -22,16 +22,16 @@ def create_pptx_from_images(img_dir, data):
 
     index = 0
     files = listdir(img_dir)
-    for item in data:
+    for item in items:
         for time in item.get("times", [""]):
             index += 1
             matching_files = [
                 file for file in files if file.startswith(f"{index:03d}")]
             if len(matching_files) > 1:
-                raise Exception(
+                raise ValueError(
                     f"More than one image with id {index:03d}: {matching_files}")
             file_name = matching_files[0] if len(
-                matching_files) == 1 else False
+                matching_files) == 1 else None
             image_includes_caption = item.get("image_includes_caption")
 
             slide = prs.slides.add_slide(
@@ -54,8 +54,10 @@ def create_pptx_from_images(img_dir, data):
             else:
                 pic = slide.shapes.add_picture(
                     path.join(img_dir, file_name), Inches(0), Inches(0), width=prs.slide_width)
+
                 # To send the picture to the back, it needs to be repositioned as the first element
-                slide.shapes[0]._element.addprevious(pic._element)
+                slide.shapes[0]._element.addprevious(  # pylint: disable=protected-access
+                    pic._element)  # pylint: disable=protected-access
 
                 aspect_ratio = pic.width / pic.height
                 if aspect_ratio < 4 / 3:
@@ -69,9 +71,10 @@ def create_pptx_from_images(img_dir, data):
                         pic.top = max_top_gap
 
             show_by_default = item.get("show_by_default") and (item.get(
-                "show_by_default") == True or item.get("show_by_default").count(time) > 0)
+                "show_by_default") is True or item.get("show_by_default").count(time) > 0)
             if not (file_name and show_by_default):
-                slide._element.set('show', '0')
+                slide._element.set(  # pylint: disable=protected-access
+                    'show', '0')
 
     save_safely(prs, path.join(img_dir, 'briefing.pptx'))
 
