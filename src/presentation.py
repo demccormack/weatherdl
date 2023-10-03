@@ -9,7 +9,7 @@ background_color = RGBColor(0, 34, 102)
 text_color = RGBColor(230, 191, 0)
 
 
-def create_pptx_from_images(dir, data):
+def create_pptx_from_images(img_dir, data):
     print("\nBuilding presentation")
     prs = Presentation()
 
@@ -21,7 +21,7 @@ def create_pptx_from_images(dir, data):
         fill.fore_color.rgb = background_color
 
     index = 0
-    files = listdir(dir)
+    files = listdir(img_dir)
     for item in data:
         for time in item.get("times", [""]):
             index += 1
@@ -53,7 +53,7 @@ def create_pptx_from_images(dir, data):
                 print(f"No image for {index} {item['name']} {time}")
             else:
                 pic = slide.shapes.add_picture(
-                    path.join(dir, file_name), Inches(0), Inches(0), width=prs.slide_width)
+                    path.join(img_dir, file_name), Inches(0), Inches(0), width=prs.slide_width)
                 # To send the picture to the back, it needs to be repositioned as the first element
                 slide.shapes[0]._element.addprevious(pic._element)
 
@@ -73,14 +73,14 @@ def create_pptx_from_images(dir, data):
             if not (file_name and show_by_default):
                 slide._element.set('show', '0')
 
-    save_safely(prs, path.join(dir, 'briefing.pptx'))
+    save_safely(prs, path.join(img_dir, 'briefing.pptx'))
 
 
 def save_safely(pres, dest):
-    dir = path.dirname(dest)
+    img_dir = path.dirname(dest)
     file = path.basename(dest)
-    name = unused_file_name_like(file, listdir(dir))
-    full_path = path.join(dir, name)
+    name = unused_file_name_like(file, listdir(img_dir))
+    full_path = path.join(img_dir, name)
     pres.save(full_path)
     print(f"Presentation saved to '{full_path}'")
 
