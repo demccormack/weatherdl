@@ -20,7 +20,7 @@ class ApplicationConfig:
     """
 
     def __init__(self, config_file_path):
-        with open(config_file_path, "r") as config_file:
+        with open(config_file_path, "r", encoding="utf-8") as config_file:
             self.config = json.loads(config_file.read())
 
         home = path.expanduser('~')
