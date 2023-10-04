@@ -5,7 +5,7 @@ from briefing import Briefing
 
 def run(config):
     Downloader(config).run()
-    Briefing(config).save_as('briefing.pptx')
+    Briefing(config).save_as("briefing.pptx")
 
 
 if __name__ == "__main__":

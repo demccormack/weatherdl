@@ -38,19 +38,23 @@ class Briefing:
 
     def current_img_file(self):
         matching_files = [
-            file for file in self._files if file.startswith(f"{self.current_slide_number():03d}")]
+            file
+            for file in self._files
+            if file.startswith(f"{self.current_slide_number():03d}")
+        ]
         if len(matching_files) > 1:
             raise ValueError(
-                f"More than one image with id {self.current_slide_number():03d}: {matching_files}")
+                f"More than one image with id {self.current_slide_number():03d}: {matching_files}"
+            )
 
-        return matching_files[0] if len(
-            matching_files) == 1 else None
+        return matching_files[0] if len(matching_files) == 1 else None
 
     def add_slide(self, item, time):
         image_includes_caption = item.get("image_includes_caption")
 
         slide = self._presentation.slides.add_slide(
-            self._layout_blank if image_includes_caption else self._layout_with_title)
+            self._layout_blank if image_includes_caption else self._layout_with_title
+        )
 
         if not image_includes_caption:
             title = slide.shapes.title
@@ -62,8 +66,7 @@ class Briefing:
             title.fill.fore_color.rgb = background_color
             title.line.color.rgb = text_color
             title.line.width = Pt(1.5)
-            title_text.text = ' '.join(
-                filter(None, [item['name'], time]))
+            title_text.text = " ".join(filter(None, [item["name"], time]))
 
         return slide
 
@@ -72,32 +75,36 @@ class Briefing:
             path.join(self._img_dir, file_name),
             Inches(0),
             Inches(0),
-            width=self._presentation.slide_width
+            width=self._presentation.slide_width,
         )
 
         # To send the picture to the back, it needs to be repositioned as the first element
-        self._current_slide.shapes[0]._element.addprevious(  # pylint: disable=protected-access
-            pic._element)  # pylint: disable=protected-access
+        self._current_slide.shapes[  # pylint: disable=protected-access
+            0
+        ]._element.addprevious(
+            pic._element  # pylint: disable=protected-access
+        )
 
         aspect_ratio = pic.width / pic.height
         if aspect_ratio < 4 / 3:
             pic.height = self._presentation.slide_height
             pic.width = floor(pic.height * aspect_ratio)
-            pic.left = floor(
-                (self._presentation.slide_width - pic.width) / 2)
+            pic.left = floor((self._presentation.slide_width - pic.width) / 2)
         else:
-            max_top_gap = floor(
-                self._presentation.slide_height / 4.5)
+            max_top_gap = floor(self._presentation.slide_height / 4.5)
             space = self._presentation.slide_height - pic.height
             if space > max_top_gap:
                 pic.top = max_top_gap
 
     def set_visibility(self, item, time, file_name):
-        show_by_default = item.get("show_by_default") and (item.get(
-            "show_by_default") is True or item.get("show_by_default").count(time) > 0)
+        show_by_default = item.get("show_by_default") and (
+            item.get("show_by_default") is True
+            or item.get("show_by_default").count(time) > 0
+        )
         if not (file_name and show_by_default):
             self._current_slide._element.set(  # pylint: disable=protected-access
-                'show', '0')
+                "show", "0"
+            )
 
     def create(self):
         print("\nBuilding presentation")
@@ -112,7 +119,8 @@ class Briefing:
                     self.insert_image(file_name)
                 else:
                     print(
-                        f"No image for {self.current_slide_number():03d} {item['name']} {time}")
+                        f"No image for {self.current_slide_number():03d} {item['name']} {time}"
+                    )
 
     def save_as(self, file_name):
         name = unused_file_name_like(file_name, listdir(self._img_dir))

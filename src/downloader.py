@@ -46,20 +46,17 @@ class Downloader:
         if self.is_provided(time):
             hour = int(time[0:2])
             minute = int(time[2:4])
-            date_time_for_url = date_time_for_url.replace(
-                hour=hour, minute=minute)
+            date_time_for_url = date_time_for_url.replace(hour=hour, minute=minute)
         if self.includes_day_shift(time):
             days = int(time[5:6])
-            date_time_for_url = date_time_for_url + \
-                timedelta(days=days)
+            date_time_for_url = date_time_for_url + timedelta(days=days)
         if is_utc:
             date_time_for_url -= date_time_for_url.utcoffset()
 
         return date_time_for_url.strftime(url_from_config)
 
     def process_buffer(self, buffer, basename, url):
-        mime_type = from_buffer(
-            buffer.content, mime=True).split('/')
+        mime_type = from_buffer(buffer.content, mime=True).split("/")
 
         if mime_type[0] == "image":
             extension = mime_type[1]
@@ -72,8 +69,7 @@ class Downloader:
             print(f"Success! - {file_name}")
             self.success_count += 1
         else:
-            self.handle_unavailable_image(
-                Exception("Not an image"), basename, url)
+            self.handle_unavailable_image(Exception("Not an image"), basename, url)
 
     def run(self):
         img_dir = self.config.img_dir
@@ -87,9 +83,10 @@ class Downloader:
                 index += 1
 
                 padded_slide_number = f"{index:03d}"
-                slide_name = item['name']
-                basename = ' '.join(
-                    filter(None, [padded_slide_number, slide_name, time]))
+                slide_name = item["name"]
+                basename = " ".join(
+                    filter(None, [padded_slide_number, slide_name, time])
+                )
 
                 if not self.file_exists_with_basename(basename):
                     url = self.url_from_time(item, time)
@@ -103,10 +100,10 @@ class Downloader:
 
                     self.process_buffer(buffer, basename, url)
 
-        time_taken = self.config.time_zone.fromutc(
-            datetime.utcnow()) - self.config.start_time
-        print(
-            f"{self.success_count} images downloaded in {time_taken}.\n")
+        time_taken = (
+            self.config.time_zone.fromutc(datetime.utcnow()) - self.config.start_time
+        )
+        print(f"{self.success_count} images downloaded in {time_taken}.\n")
         if self.failed_items:
             print(f"{len(self.failed_items)} images failed:")
             for failure in self.failed_items:

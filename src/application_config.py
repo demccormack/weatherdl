@@ -25,7 +25,7 @@ class ApplicationConfig:
         with open(config_file_path, "r", encoding="utf-8") as config_file:
             self.config = json.loads(config_file.read())
 
-        home = path.expanduser('~')
+        home = path.expanduser("~")
         img_dir_path = path.join(home, *self.config["working_dir"])
 
         self.time_zone = timezone(self.config["time_zone"])

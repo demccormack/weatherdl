@@ -7,7 +7,7 @@ def unused_file_name_like(name, dir_listing):
 
     i = 1
     parts = path.splitext(name)
-    while ''.join([f"{parts[0]} ({i})", parts[1]]) in dir_listing:
+    while "".join([f"{parts[0]} ({i})", parts[1]]) in dir_listing:
         i = i + 1
 
-    return ''.join([f"{parts[0]} ({i})", parts[1]])
+    return "".join([f"{parts[0]} ({i})", parts[1]])
