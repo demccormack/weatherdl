@@ -1,4 +1,4 @@
-from briefing import unused_file_name_like
+from utils import unused_file_name_like
 
 
 def test_it_returns_name_if_unused():

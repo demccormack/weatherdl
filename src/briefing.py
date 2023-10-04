@@ -5,6 +5,8 @@ from pptx import Presentation
 from pptx.dml.color import RGBColor
 from pptx.util import Inches, Pt
 
+from utils import unused_file_name_like
+
 background_color = RGBColor(0, 34, 102)
 text_color = RGBColor(230, 191, 0)
 
@@ -117,15 +119,3 @@ class Briefing:
         full_path = path.join(self._img_dir, name)
         self._presentation.save(full_path)
         print(f"Presentation saved to '{full_path}'")
-
-
-def unused_file_name_like(name, dir_listing):
-    if name not in dir_listing:
-        return name
-
-    i = 1
-    parts = path.splitext(name)
-    while ''.join([f"{parts[0]} ({i})", parts[1]]) in dir_listing:
-        i = i + 1
-
-    return ''.join([f"{parts[0]} ({i})", parts[1]])
