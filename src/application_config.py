@@ -4,6 +4,8 @@ from os import path
 
 from pytz import timezone
 
+# pylint: disable=too-few-public-methods
+
 
 class ApplicationConfig:
     """
