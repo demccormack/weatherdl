@@ -112,7 +112,7 @@ class Briefing:
                     self.insert_image(file_name)
                 else:
                     print(
-                        f"No image for {self.current_slide_number()} {item['name']} {time}")
+                        f"No image for {self.current_slide_number():03d} {item['name']} {time}")
 
     def save_as(self, file_name):
         name = unused_file_name_like(file_name, listdir(self._img_dir))
