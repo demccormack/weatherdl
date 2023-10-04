@@ -27,17 +27,19 @@ class Briefing:
             fill.fore_color.rgb = background_color
 
         self._files = listdir(self._img_dir)
-        self._current_index = 0
         self._current_slide = None
 
         self.create()
 
+    def current_slide_number(self):
+        return len(self._presentation.slides)
+
     def current_img_file(self):
         matching_files = [
-            file for file in self._files if file.startswith(f"{self._current_index:03d}")]
+            file for file in self._files if file.startswith(f"{self.current_slide_number():03d}")]
         if len(matching_files) > 1:
             raise ValueError(
-                f"More than one image with id {self._current_index:03d}: {matching_files}")
+                f"More than one image with id {self.current_slide_number():03d}: {matching_files}")
 
         return matching_files[0] if len(
             matching_files) == 1 else None
@@ -65,7 +67,11 @@ class Briefing:
 
     def insert_image(self, file_name):
         pic = self._current_slide.shapes.add_picture(
-            path.join(self._img_dir, file_name), Inches(0), Inches(0), width=self._presentation.slide_width)
+            path.join(self._img_dir, file_name),
+            Inches(0),
+            Inches(0),
+            width=self._presentation.slide_width
+        )
 
         # To send the picture to the back, it needs to be repositioned as the first element
         self._current_slide.shapes[0]._element.addprevious(  # pylint: disable=protected-access
@@ -96,8 +102,6 @@ class Briefing:
 
         for item in self._items:
             for time in item.get("times", [""]):
-                self._current_index += 1
-
                 self._current_slide = self.add_slide(item, time)
                 file_name = self.current_img_file()
                 self.set_visibility(item, time, file_name)
@@ -106,7 +110,7 @@ class Briefing:
                     self.insert_image(file_name)
                 else:
                     print(
-                        f"No image for {self._current_index} {item['name']} {time}")
+                        f"No image for {self.current_slide_number()} {item['name']} {time}")
 
     def save_as(self, file_name):
         name = unused_file_name_like(file_name, listdir(self._img_dir))
