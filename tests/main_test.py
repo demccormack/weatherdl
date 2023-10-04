@@ -5,7 +5,7 @@ import pytest
 
 from application_config import ApplicationConfig
 from downloader import Downloader
-from presentation import create_pptx_from_images
+from briefing import create_pptx_from_images
 
 temp_dir = path.join("tests", "test_run")
 
