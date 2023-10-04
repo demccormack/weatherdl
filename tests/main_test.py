@@ -2,10 +2,10 @@ from os import path
 from shutil import rmtree
 
 import pytest
+from pptx import Presentation
 
 from application_config import ApplicationConfig
-from downloader import Downloader
-from briefing import create_pptx_from_images
+from main import run
 
 temp_dir = path.join("tests", "test_run")
 
@@ -22,8 +22,9 @@ def test_it_creates_expected_files():
     config = ApplicationConfig(path.join("tests", "fixtures", "config.json"))
     config.img_dir = temp_dir
 
-    Downloader(config).run()
+    run(config)
     assert path.isfile(path.join(temp_dir, "001 Flying to Mt Cook.jpeg"))
-
-    create_pptx_from_images(config.img_dir, config.items)
     assert path.isfile(path.join(temp_dir, "briefing.pptx"))
+
+    pres = Presentation(path.join(temp_dir, "briefing.pptx"))
+    assert len(pres.slides) == 1
