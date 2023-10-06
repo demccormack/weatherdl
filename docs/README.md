@@ -14,6 +14,10 @@ The script has created a new directory on your desktop full of today's weather i
 ### Missing images
 You may need to re-run the script in order to download an image that wasn't available before. When you do this, a new PPTX file will be created. The original file is safe and your partially-prepared briefing won't be overwritten. However you will need to manually insert the missing image.
 
+## Webcam updates
+
+Please report broken webcam links, or suggest new ones, by [opening an issue](https://github.com/demccormack/weatherdl/issues/new/choose).
+
 ## Further Reading
   - [Configuration](./configuration.md)
   - [Contributing](./CONTRIBUTING.md)
