@@ -3,11 +3,11 @@ name: Test, lint and format
 on: [push]
 
 jobs:
-  build:
+  test-lint-and-format:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10"]
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
@@ -30,3 +30,55 @@ jobs:
     - name: Format
       run: |
         black . --check
+
+  test-windows-release:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.11"
+
+      - name: Set up build environment
+        run: |
+          python -m venv venv
+          .\venv\Scripts\Activate.ps1
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-prod.txt -r requirements-build.txt
+
+      - name: Negotiate Python package hell
+        run: |
+          .\venv\Scripts\Activate.ps1
+          python -m pip uninstall -y python-magic-bin
+
+          $url = 'https://files.pythonhosted.org/packages/07/c2/094e3d62b906d952537196603a23aec4bcd7c6126bf80eb14e6f9f4be3a2/python_magic_bin-0.4.14-py2.py3-none-win_amd64.whl'
+          $dest = 'python_magic_bin-0.4.14-py2.py3-none-win_amd64.whl'
+          Write-Host "Downloading from $url"
+          Invoke-WebRequest -Uri $url -OutFile $dest
+
+          if ((Get-FileHash -Path $dest -Algorithm SHA256).Hash -ne '90BE6206AD31071A36065A2FC169C5AFB5E0355CBE6030E87641C6C62EDC2B69') {
+              Write-Error 'Checksum does not match'
+              exit 1
+          }
+
+          python -m pip install $dest
+
+      - name: Build for Windows
+        run: |
+          .\venv\Scripts\Activate.ps1
+          python -m PyInstaller -n weatherdl --onefile --add-data 'venv\Lib\site-packages\pptx\templates:pptx\templates' src\main.py
+
+      - name: Test release
+        run: |
+          Copy-Item tests/fixtures/config.json dist
+          cd dist
+          echo '' | .\weatherdl.exe
+          $testdir = "$HOME\weatherdl_release_test_run"
+          if (-not (Test-Path -Path "$testdir\001 Flying to Mt Cook.jpeg") -or -not (Test-Path -Path "$testdir\briefing.pptx")) {
+              Write-Error "Integration test failed"
+              ls
+              exit 1
+          }

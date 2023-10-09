@@ -1,6 +1,6 @@
 {
     "time_zone": "Pacific/Auckland",
-    "working_dir": ["Desktop", "Weather Images %y%m%d"],
+    "working_dir": ["weatherdl_release_test_run"],
     "items": [
         {
             "name": "Flying to Mt Cook",
