@@ -1,4 +1,4 @@
-astroid==2.15.8
+astroid==3.0.0
 autopep8==2.0.4
 certifi==2023.7.22
 charset-normalizer==3.2.0
