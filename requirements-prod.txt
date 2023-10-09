@@ -1,4 +1,4 @@
-astroid==2.15.8
+astroid==3.0.0
 autopep8==2.0.4
 certifi==2023.7.22
 charset-normalizer==3.2.0
@@ -11,7 +11,7 @@ mccabe==0.7.0
 Pillow==9.5.0
 platformdirs==3.10.0
 pycodestyle==2.11.0
-pylint==2.17.6
+pylint==3.0.1
 python-magic==0.4.27
 python-magic-bin==0.4.14
 python-pptx==0.6.22
