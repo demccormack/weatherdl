@@ -17,3 +17,4 @@ archive
 # PyInstaller
 build
 dist
+*.spec
