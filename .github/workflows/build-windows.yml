@@ -11,10 +11,16 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
+      - name: Setup Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.11
+
       - name: Set up build environment
         run: |
           python -m venv venv
           .\venv\Scripts\Activate.ps1
+          python -m pip install --upgrade pip
           python -m pip install -r requirements-prod.txt -r requirements-build.txt
 
       - name: Negotiate Python package hell

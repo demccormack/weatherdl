@@ -1,7 +1,7 @@
 ## Development environment setup
 
 ### Prerequisites
- - Python 3.8 or later
+ - Python 3.11
  - Git
 
 ### Clone the repository
