@@ -48,6 +48,6 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
           body: |
-            [Download for Windows](https://github.com/demccormack/weatherdl/releases/download/${{ github.ref }}/weatherdl-for-windows.zip)
-            [Download for MacOS](https://github.com/demccormack/weatherdl/releases/download/${{ github.ref }}/weatherdl-for-macos.zip)
-            [Download for Ubuntu](https://github.com/demccormack/weatherdl/releases/download/${{ github.ref }}/weatherdl-for-ubuntu.zip)
+            [Download for Windows](https://github.com/demccormack/weatherdl/releases/download/${{ github.ref_name }}/weatherdl-for-windows.zip)
+            [Download for MacOS](https://github.com/demccormack/weatherdl/releases/download/${{ github.ref_name }}/weatherdl-for-macos.zip)
+            [Download for Ubuntu](https://github.com/demccormack/weatherdl/releases/download/${{ github.ref_name }}/weatherdl-for-ubuntu.zip)
