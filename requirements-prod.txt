@@ -6,7 +6,7 @@ dill==0.3.8
 idna==3.6
 isort==5.13.2
 lazy-object-proxy==1.10.0
-lxml==5.1.0
+lxml==5.2.0
 mccabe==0.7.0
 Pillow==10.2.0
 platformdirs==4.2.0
