@@ -95,6 +95,7 @@ jobs:
         run: |
           python3 -m venv venv
           source venv/bin/activate
+          python3 -m pip index versions python-magic-bin
           python3 -m pip install -r requirements-prod.txt -r requirements-build.txt
 
       - name: Build for MacOS
