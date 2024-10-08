@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-for-macos:
-    runs-on: macos-latest
+    runs-on: macos-12
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
