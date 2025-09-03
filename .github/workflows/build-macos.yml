@@ -1,8 +1,11 @@
-name: Publish MacOS release
+# DEPRECATED: This workflow has been replaced by the unified test.yml workflow
+# Building and publishing now happens in a single workflow to avoid duplicate builds
+# This file is kept for reference and can be deleted after confirming the new workflow works
+
+name: "[DEPRECATED] Publish MacOS release"
 on:
-  push:
-    tags:
-      - "v*"
+  # Workflow disabled - remove this comment to re-enable if needed
+  workflow_dispatch: # Manual trigger only
 
 jobs:
   build-for-macos:
