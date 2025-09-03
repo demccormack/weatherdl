@@ -201,11 +201,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: weatherdl-for-windows
-          path: .
+          path: dist
 
       - name: Produce artifacts
         run: |
-          Compress-Archive -Path .\* -DestinationPath weatherdl-for-windows.zip
+          Compress-Archive -Path dist\* -DestinationPath weatherdl-for-windows.zip
 
       - name: Upload Windows release
         uses: svenstaro/upload-release-action@v2
@@ -230,11 +230,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: weatherdl-for-macos
-          path: .
+          path: dist
 
       - name: Produce artifacts
         run: |
-          zip weatherdl-for-macos.zip ./*
+          zip weatherdl-for-macos.zip dist/*
 
       - name: Upload macOS release
         uses: svenstaro/upload-release-action@v2
@@ -259,11 +259,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: weatherdl-for-ubuntu
-          path: .
+          path: dist
 
       - name: Produce artifacts
         run: |
-          zip weatherdl-for-ubuntu.zip ./*
+          zip weatherdl-for-ubuntu.zip dist/*
 
       - name: Upload Ubuntu release
         uses: svenstaro/upload-release-action@v2
