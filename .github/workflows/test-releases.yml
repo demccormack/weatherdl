@@ -1,0 +1,79 @@
+name: Test Releases
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  test-windows-release:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Download Windows build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: weatherdl-for-windows
+          path: dist
+
+      - name: Test release
+        run: |
+          Copy-Item tests/fixtures/config.json dist
+          cd dist
+          echo '' | .\weatherdl.exe
+          $testdir = "$HOME\weatherdl_release_test_run"
+          if (-not (Test-Path -Path "$testdir\001 Flying to Mt Cook.jpeg") -or -not (Test-Path -Path "$testdir\briefing.pptx")) {
+              Write-Error "Integration test failed"
+              ls
+              exit 1
+          }
+
+  test-macos-release:
+    runs-on: macos-13
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Download macOS build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: weatherdl-for-macos
+          path: dist
+      
+      - name: Install libmagic
+        run: brew install libmagic
+
+      - name: Test release
+        run: |
+          set -x
+          cp -f tests/fixtures/config.json dist
+          chmod -R +x dist
+          cd dist
+          echo | ./weatherdl
+          TEST_DIR="$HOME/weatherdl_release_test_run"
+          [[ -f "$TEST_DIR/001 Flying to Mt Cook.jpeg" ]]
+          [[ -f "$TEST_DIR/briefing.pptx" ]]
+
+  test-ubuntu-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Download Ubuntu build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: weatherdl-for-ubuntu
+          path: dist
+
+      - name: Test release
+        run: |
+          set -x
+          cp -f tests/fixtures/config.json dist
+          chmod -R +x dist
+          cd dist
+          echo | ./weatherdl
+          TEST_DIR="$HOME/weatherdl_release_test_run"
+          [[ -f "$TEST_DIR/001 Flying to Mt Cook.jpeg" ]]
+          [[ -f "$TEST_DIR/briefing.pptx" ]]

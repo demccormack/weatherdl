@@ -1,0 +1,87 @@
+name: Release
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  publish-windows:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Windows build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: weatherdl-for-windows
+          path: dist
+
+      - name: Produce artifacts
+        run: |
+          zip -r weatherdl-for-windows.zip dist/*
+
+      - name: Upload Windows release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          release_name: ${{ github.ref_name }}
+          file: weatherdl-for-windows.zip
+          asset_name: weatherdl-for-windows.zip
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: |
+            [Download for Windows](https://github.com/demccormack/weatherdl/releases/download/${{ github.ref_name }}/weatherdl-for-windows.zip)
+            [Download for MacOS](https://github.com/demccormack/weatherdl/releases/download/${{ github.ref_name }}/weatherdl-for-macos.zip)
+            [Download for Ubuntu](https://github.com/demccormack/weatherdl/releases/download/${{ github.ref_name }}/weatherdl-for-ubuntu.zip)
+
+  publish-macos:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download macOS build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: weatherdl-for-macos
+          path: dist
+
+      - name: Produce artifacts
+        run: |
+          zip -r weatherdl-for-macos.zip dist/*
+
+      - name: Upload macOS release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          release_name: ${{ github.ref_name }}
+          file: weatherdl-for-macos.zip
+          asset_name: weatherdl-for-macos.zip
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: |
+            [Download for Windows](https://github.com/demccormack/weatherdl/releases/download/${{ github.ref_name }}/weatherdl-for-windows.zip)
+            [Download for MacOS](https://github.com/demccormack/weatherdl/releases/download/${{ github.ref_name }}/weatherdl-for-macos.zip)
+            [Download for Ubuntu](https://github.com/demccormack/weatherdl/releases/download/${{ github.ref_name }}/weatherdl-for-ubuntu.zip)
+
+  publish-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Ubuntu build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: weatherdl-for-ubuntu
+          path: dist
+
+      - name: Produce artifacts
+        run: |
+          zip -r weatherdl-for-ubuntu.zip dist/*
+
+      - name: Upload Ubuntu release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          release_name: ${{ github.ref_name }}
+          file: weatherdl-for-ubuntu.zip
+          asset_name: weatherdl-for-ubuntu.zip
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: |
+            [Download for Windows](https://github.com/demccormack/weatherdl/releases/download/${{ github.ref_name }}/weatherdl-for-windows.zip)
+            [Download for MacOS](https://github.com/demccormack/weatherdl/releases/download/${{ github.ref_name }}/weatherdl-for-macos.zip)
+            [Download for Ubuntu](https://github.com/demccormack/weatherdl/releases/download/${{ github.ref_name }}/weatherdl-for-ubuntu.zip)
