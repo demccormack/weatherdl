@@ -5,23 +5,40 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-windows-release:
-    runs-on: windows-latest
+  test-releases:
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            platform: windows
+            executable: weatherdl.exe
+          - os: macos-13
+            platform: macos
+            executable: weatherdl
+          - os: ubuntu-latest
+            platform: ubuntu
+            executable: weatherdl
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Download Windows build artifact
+      - name: Download ${{ matrix.platform }} build artifact
         uses: actions/download-artifact@v4
         with:
-          name: weatherdl-for-windows
+          name: weatherdl-for-${{ matrix.platform }}
           path: dist
+      
+      - name: Install libmagic (macOS only)
+        if: matrix.platform == 'macos'
+        run: brew install libmagic
 
-      - name: Test release
+      - name: Test release (Windows)
+        if: matrix.platform == 'windows'
         run: |
           Copy-Item tests/fixtures/config.json dist
           cd dist
-          echo '' | .\weatherdl.exe
+          echo '' | .\${{ matrix.executable }}
           $testdir = "$HOME\weatherdl_release_test_run"
           if (-not (Test-Path -Path "$testdir\001 Flying to Mt Cook.jpeg") -or -not (Test-Path -Path "$testdir\briefing.pptx")) {
               Write-Error "Integration test failed"
@@ -29,51 +46,14 @@ jobs:
               exit 1
           }
 
-  test-macos-release:
-    runs-on: macos-13
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-
-      - name: Download macOS build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: weatherdl-for-macos
-          path: dist
-      
-      - name: Install libmagic
-        run: brew install libmagic
-
-      - name: Test release
+      - name: Test release (macOS/Ubuntu)
+        if: matrix.platform != 'windows'
         run: |
           set -x
           cp -f tests/fixtures/config.json dist
           chmod -R +x dist
           cd dist
-          echo | ./weatherdl
-          TEST_DIR="$HOME/weatherdl_release_test_run"
-          [[ -f "$TEST_DIR/001 Flying to Mt Cook.jpeg" ]]
-          [[ -f "$TEST_DIR/briefing.pptx" ]]
-
-  test-ubuntu-release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-
-      - name: Download Ubuntu build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: weatherdl-for-ubuntu
-          path: dist
-
-      - name: Test release
-        run: |
-          set -x
-          cp -f tests/fixtures/config.json dist
-          chmod -R +x dist
-          cd dist
-          echo | ./weatherdl
+          echo | ./${{ matrix.executable }}
           TEST_DIR="$HOME/weatherdl_release_test_run"
           [[ -f "$TEST_DIR/001 Flying to Mt Cook.jpeg" ]]
           [[ -f "$TEST_DIR/briefing.pptx" ]]
