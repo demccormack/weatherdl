@@ -134,7 +134,6 @@ jobs:
 
       - name: Test release
         run: |
-          cd dist
           echo '' | .\weatherdl.exe
           $testdir = "$HOME\weatherdl_release_test_run"
           if (-not (Test-Path -Path "$testdir\001 Flying to Mt Cook.jpeg") -or -not (Test-Path -Path "$testdir\briefing.pptx")) {
@@ -162,7 +161,6 @@ jobs:
       - name: Test release
         run: |
           set -x
-          cd dist
           echo | ./weatherdl
           TEST_DIR="$HOME/weatherdl_release_test_run"
           [[ -f "$TEST_DIR/001 Flying to Mt Cook.jpeg" ]]
@@ -184,7 +182,6 @@ jobs:
       - name: Test release
         run: |
           set -x
-          cd dist
           echo | ./weatherdl
           TEST_DIR="$HOME/weatherdl_release_test_run"
           [[ -f "$TEST_DIR/001 Flying to Mt Cook.jpeg" ]]
