@@ -51,7 +51,6 @@ jobs:
         run: |
           set -x
           cp -f tests/fixtures/config.json dist
-          chmod -R +x dist
           cd dist
           echo | ./${{ matrix.executable }}
           TEST_DIR="$HOME/weatherdl_release_test_run"
