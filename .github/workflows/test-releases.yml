@@ -1,0 +1,59 @@
+name: Test Releases
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  test-releases:
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            platform: windows
+            executable: weatherdl.exe
+          - os: macos-13
+            platform: macos
+            executable: weatherdl
+          - os: ubuntu-latest
+            platform: ubuntu
+            executable: weatherdl
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Download ${{ matrix.platform }} build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: weatherdl-for-${{ matrix.platform }}
+          path: dist
+      
+      - name: Install libmagic (macOS only)
+        if: matrix.platform == 'macos'
+        run: brew install libmagic
+
+      - name: Test release (Windows)
+        if: matrix.platform == 'windows'
+        run: |
+          Copy-Item tests/fixtures/config.json dist
+          cd dist
+          echo '' | .\${{ matrix.executable }}
+          $testdir = "$HOME\weatherdl_release_test_run"
+          if (-not (Test-Path -Path "$testdir\001 Flying to Mt Cook.jpeg") -or -not (Test-Path -Path "$testdir\briefing.pptx")) {
+              Write-Error "Integration test failed"
+              ls
+              exit 1
+          }
+
+      - name: Test release (macOS/Ubuntu)
+        if: matrix.platform != 'windows'
+        run: |
+          set -x
+          cp -f tests/fixtures/config.json dist
+          chmod -R +x dist
+          cd dist
+          echo | ./${{ matrix.executable }}
+          TEST_DIR="$HOME/weatherdl_release_test_run"
+          [[ -f "$TEST_DIR/001 Flying to Mt Cook.jpeg" ]]
+          [[ -f "$TEST_DIR/briefing.pptx" ]]
