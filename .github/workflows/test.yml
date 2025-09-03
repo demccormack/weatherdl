@@ -17,23 +17,20 @@ jobs:
       with:
         python-version: 3.12
     - name: Negotiate Python package hell
-      run: |
-        sed -i '/python-magic-bin/d' requirements-prod.txt
+      run: sed -i '/python-magic-bin/d' requirements-prod.txt
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements-prod.txt -r requirements-dev.txt
     - name: Test
-      run: |
-        pytest
+      run: pytest
     - name: Lint
-      run: |
-        pylint $(git ls-files '*.py')
+      run: pylint $(git ls-files '*.py')
     - name: Format
-      run: |
-        black . --check
+      run: black . --check
 
   build-releases:
+    needs: test-lint-and-format
     strategy:
       matrix:
         include:
