@@ -16,7 +16,7 @@ python-magic==0.4.27
 python-magic-bin==0.4.14
 python-pptx==1.0.2
 pytz==2024.2
-requests==2.32.3
+requests==2.32.5
 tomlkit==0.13.2
 urllib3==2.5.0
 wrapt==1.17.0
