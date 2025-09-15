@@ -13,4 +13,4 @@ pycodestyle==2.12.1
 pylint==3.3.2
 pytest==8.3.4
 tomlkit==0.13.2
-wrapt==1.17.0
+wrapt==1.17.3
