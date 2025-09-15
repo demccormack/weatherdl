@@ -19,5 +19,5 @@ pytz==2024.2
 requests==2.32.5
 tomlkit==0.13.2
 urllib3==2.5.0
-wrapt==1.17.0
+wrapt==1.17.3
 XlsxWriter==3.2.0
