@@ -9,7 +9,7 @@ lazy-object-proxy==1.10.0
 lxml==6.0.1
 mccabe==0.7.0
 Pillow==11.3.0
-platformdirs==4.3.6
+platformdirs==4.4.0
 pycodestyle==2.12.1
 pylint==3.3.2
 python-magic==0.4.27
