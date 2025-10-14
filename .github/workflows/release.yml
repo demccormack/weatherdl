@@ -17,6 +17,11 @@ jobs:
           name: weatherdl-for-${{ matrix.platform }}
           path: dist
 
+      - name: Restore executable permissions (Unix platforms)
+        if: matrix.platform != 'windows'
+        run: |
+          chmod +x dist/weatherdl
+
       - name: Produce artifacts
         run: |
           zip -r weatherdl-for-${{ matrix.platform }}.zip dist/*
