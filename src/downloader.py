@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 from glob import glob
 from os import mkdir, path
 
+import filetype
 import requests
-from magic import from_buffer
 
 # pylint: disable=missing-function-docstring
 
@@ -56,10 +56,10 @@ class Downloader:
         return date_time_for_url.strftime(url_from_config)
 
     def process_buffer(self, buffer, basename, url):
-        mime_type = from_buffer(buffer.content, mime=True).split("/")
+        kind = filetype.guess(buffer.content)
 
-        if mime_type[0] == "image":
-            extension = mime_type[1]
+        if kind and kind.mime.startswith("image/"):
+            extension = kind.extension
             file_name = f"{basename}.{extension}"
             file_path = path.join(self.config.img_dir, file_name)
 
