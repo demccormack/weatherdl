@@ -59,7 +59,11 @@ class Downloader:
         kind = filetype.guess(buffer.content)
 
         if kind and kind.mime.startswith("image/"):
-            extension = kind.extension
+            # Use mime type to get extension for consistency with previous behavior
+            # filetype returns 'jpg' but we want 'jpeg' for consistency
+            mime_parts = kind.mime.split("/")
+            extension = mime_parts[1] if len(mime_parts) > 1 else kind.extension
+            
             file_name = f"{basename}.{extension}"
             file_path = path.join(self.config.img_dir, file_name)
 
