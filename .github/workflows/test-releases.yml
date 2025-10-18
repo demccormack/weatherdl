@@ -12,7 +12,7 @@ jobs:
           - os: windows-latest
             platform: windows
             executable: weatherdl.exe
-          - os: macos-13
+          - os: macos-latest
             platform: macos
             executable: weatherdl
           - os: ubuntu-latest
@@ -29,10 +29,6 @@ jobs:
           name: weatherdl-for-${{ matrix.platform }}
           path: dist
       
-      - name: Install libmagic (macOS only)
-        if: matrix.platform == 'macos'
-        run: brew install libmagic
-
       - name: Test release (Windows)
         if: matrix.platform == 'windows'
         run: |

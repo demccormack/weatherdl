@@ -11,7 +11,7 @@ jobs:
         include:
           - os: windows-latest
             platform: windows
-          - os: macos-13
+          - os: macos-latest
             platform: macos
           - os: ubuntu-latest
             platform: ubuntu
@@ -33,24 +33,6 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements-prod.txt -r requirements-build.txt
 
-      - name: Negotiate Python package hell (Windows)
-        if: matrix.platform == 'windows'
-        run: |
-          .\venv\Scripts\Activate.ps1
-          python -m pip uninstall -y python-magic-bin
-
-          $url = 'https://files.pythonhosted.org/packages/07/c2/094e3d62b906d952537196603a23aec4bcd7c6126bf80eb14e6f9f4be3a2/python_magic_bin-0.4.14-py2.py3-none-win_amd64.whl'
-          $dest = 'python_magic_bin-0.4.14-py2.py3-none-win_amd64.whl'
-          Write-Host "Downloading from $url"
-          Invoke-WebRequest -Uri $url -OutFile $dest
-
-          if ((Get-FileHash -Path $dest -Algorithm SHA256).Hash -ne '90BE6206AD31071A36065A2FC169C5AFB5E0355CBE6030E87641C6C62EDC2B69') {
-              Write-Error 'Checksum does not match'
-              exit 1
-          }
-
-          python -m pip install $dest
-
       - name: Build for Windows
         if: matrix.platform == 'windows'
         run: |
@@ -61,11 +43,6 @@ jobs:
         if: matrix.platform == 'windows'
         run: |
           Copy-Item config.json dist
-
-      - name: Negotiate Python package hell (Ubuntu)
-        if: matrix.platform == 'ubuntu'
-        run: |
-          sed -i '/python-magic-bin/d' requirements-prod.txt
 
       - name: Set up build environment (macOS/Ubuntu)
         if: matrix.platform != 'windows'
