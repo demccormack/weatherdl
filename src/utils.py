@@ -1,4 +1,16 @@
+import sys
 from os import path
+
+
+def get_config_path():
+    if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
+        # PyInstaller bundle
+        config_dir = path.dirname(path.abspath(sys.executable))
+    else:
+        # Python script
+        config_dir = path.dirname(path.dirname(path.abspath(__file__)))
+
+    return path.join(config_dir, "config.json")
 
 
 def unused_file_name_like(name, dir_listing):
