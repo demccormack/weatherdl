@@ -8,7 +8,7 @@ jobs:
   publish:
     strategy:
       matrix:
-        platform: [windows, macos, ubuntu]
+        platform: [windows, macos-intel, macos-arm64, ubuntu]
     runs-on: ubuntu-latest
     steps:
       - name: Download ${{ matrix.platform }} build artifact
@@ -37,5 +37,6 @@ jobs:
           overwrite: true
           body: |
             [Download for Windows](https://github.com/demccormack/weatherdl/releases/download/${{ github.ref_name }}/weatherdl-for-windows.zip)
-            [Download for MacOS](https://github.com/demccormack/weatherdl/releases/download/${{ github.ref_name }}/weatherdl-for-macos.zip)
+            [Download for MacOS Intel](https://github.com/demccormack/weatherdl/releases/download/${{ github.ref_name }}/weatherdl-for-macos-intel.zip)
+            [Download for MacOS Apple Silicon](https://github.com/demccormack/weatherdl/releases/download/${{ github.ref_name }}/weatherdl-for-macos-arm64.zip)
             [Download for Ubuntu](https://github.com/demccormack/weatherdl/releases/download/${{ github.ref_name }}/weatherdl-for-ubuntu.zip)
