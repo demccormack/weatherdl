@@ -30,10 +30,11 @@ jobs:
       - name: Set up build environment (Windows)
         if: matrix.platform == 'windows'
         run: |
-          python -m venv venv
+          pip install uv
+          uv venv venv
           .\venv\Scripts\Activate.ps1
-          python -m pip install --upgrade pip
-          python -m pip install -r requirements-prod.txt -r requirements-build.txt
+          uv pip install pyinstaller
+          uv pip install --editable .[build]
 
       - name: Build for Windows
         if: matrix.platform == 'windows'
@@ -49,9 +50,11 @@ jobs:
       - name: Set up build environment (macOS/Ubuntu)
         if: matrix.platform != 'windows'
         run: |
-          python3 -m venv venv
+          pip install uv
+          uv venv venv
           source venv/bin/activate
-          python3 -m pip install -r requirements-prod.txt -r requirements-build.txt
+          uv pip install pyinstaller
+          uv pip install --editable .[build]
 
       - name: Build for macOS/Ubuntu
         if: matrix.platform != 'windows'
