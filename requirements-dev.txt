@@ -1,4 +1,4 @@
-astroid==3.3.11
+astroid==4.0.1
 black==25.9.0
 click==8.1.8
 dill==0.4.0
