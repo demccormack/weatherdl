@@ -12,7 +12,7 @@ jobs:
           - os: windows-latest
             platform: windows
             executable: weatherdl.exe
-          - os: macos-13
+          - os: macos-15
             platform: macos-intel
             executable: weatherdl
           - os: macos-latest
