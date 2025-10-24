@@ -5,6 +5,7 @@ This script downloads all the images required for a weather briefing in Omarama,
 
 1. Find the [latest release](https://github.com/demccormack/weatherdl/releases/latest)
 2. Download the correct file for your operating system
+   - **MacOS users**: Choose "Intel" if you have an Intel-based Mac (2020 or earlier), or "Apple Silicon" if you have an M1/M2/M3/M4 Mac (2020 or later)
 3. Unzip the file
 4. Run the executable
 
