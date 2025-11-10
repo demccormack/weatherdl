@@ -46,6 +46,11 @@ jobs:
         run: |
           Copy-Item config.json dist
 
+      - name: Rename dist to weatherdl (Windows)
+        if: matrix.platform == 'windows'
+        run: |
+          Rename-Item -Path dist -NewName weatherdl
+
       - name: Set up build environment (macOS/Ubuntu)
         if: matrix.platform != 'windows'
         run: |
@@ -64,8 +69,13 @@ jobs:
         run: |
           cp config.json dist
 
+      - name: Rename dist to weatherdl (macOS/Ubuntu)
+        if: matrix.platform != 'windows'
+        run: |
+          mv dist weatherdl
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: weatherdl-for-${{ matrix.platform }}
-          path: dist
+          path: weatherdl
