@@ -11,7 +11,7 @@ mccabe==0.7.0
 Pillow==11.3.0
 platformdirs==4.5.0
 pycodestyle==2.12.1
-pylint==3.3.2
+pylint==4.0.2
 filetype==1.2.0
 python-pptx==1.0.2
 pytz==2025.2
