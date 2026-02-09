@@ -15,7 +15,7 @@ filetype==1.2.0
 python-pptx==1.0.2
 pytz==2025.2
 requests==2.32.5
-tomlkit==0.13.3
+tomlkit==0.14.0
 urllib3==2.6.3
 wrapt==1.17.3
 XlsxWriter==3.2.9
