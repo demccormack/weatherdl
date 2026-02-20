@@ -30,13 +30,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: weatherdl-for-${{ matrix.platform }}
-          path: dist
+          path: weatherdl
       
       - name: Test release (Windows)
         if: matrix.platform == 'windows'
         run: |
-          Copy-Item tests/fixtures/config.json dist
-          cd dist
+          Copy-Item tests/fixtures/config.json weatherdl
+          cd weatherdl
           echo '' | .\${{ matrix.executable }}
           $testdir = "$HOME\weatherdl_release_test_run"
           if (-not (Test-Path -Path "$testdir\001 Flying to Mt Cook.jpeg") -or -not (Test-Path -Path "$testdir\briefing.pptx")) {
@@ -49,9 +49,9 @@ jobs:
         if: matrix.platform != 'windows'
         run: |
           set -x
-          cp -f tests/fixtures/config.json dist
-          chmod -R +x dist
-          cd dist
+          cp -f tests/fixtures/config.json weatherdl
+          chmod -R +x weatherdl
+          cd weatherdl
           echo | ./${{ matrix.executable }}
           TEST_DIR="$HOME/weatherdl_release_test_run"
           [[ -f "$TEST_DIR/001 Flying to Mt Cook.jpeg" ]]
