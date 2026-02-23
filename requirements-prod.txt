@@ -1,5 +1,5 @@
 autopep8==2.3.2
-certifi==2025.10.5
+certifi==2026.1.4
 charset-normalizer==3.4.3
 dill==0.4.0
 idna==3.10
