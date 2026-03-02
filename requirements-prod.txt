@@ -3,7 +3,7 @@ certifi==2026.2.25
 charset-normalizer==3.4.3
 dill==0.4.1
 idna==3.10
-isort==5.13.2
+isort==8.0.1
 lazy-object-proxy==1.12.0
 lxml==6.0.2
 mccabe==0.7.0
