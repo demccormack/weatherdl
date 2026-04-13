@@ -10,6 +10,6 @@ pathspec==1.0.4
 pluggy==1.6.0
 pycodestyle==2.14.0
 pylint==4.0.5
-pytest==9.0.2
+pytest==9.0.3
 tomlkit==0.14.0
 wrapt==2.1.2
