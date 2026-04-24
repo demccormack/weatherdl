@@ -1,6 +1,6 @@
 [project]
 name = "weatherdl"
-version = "1.0.0"
+version = "v1.3.0"
 description = "Weather download tool"
 readme = "README.md"
 requires-python = ">=3.12"
