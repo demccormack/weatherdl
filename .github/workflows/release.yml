@@ -15,16 +15,16 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: weatherdl-for-${{ matrix.platform }}
-          path: dist
+          path: weatherdl
 
       - name: Restore executable permissions (Unix platforms)
         if: matrix.platform != 'windows'
         run: |
-          chmod +x dist/weatherdl
+          chmod +x weatherdl/weatherdl
 
       - name: Produce artifacts
         run: |
-          zip -r weatherdl-for-${{ matrix.platform }}.zip dist/*
+          zip -r weatherdl-for-${{ matrix.platform }}.zip weatherdl/*
 
       - name: Upload ${{ matrix.platform }} release
         uses: svenstaro/upload-release-action@v2
