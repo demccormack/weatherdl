@@ -1,8 +1,9 @@
 ## Development environment setup
 
 ### Prerequisites
- - Python 3.12
+ - Python 3.12 or higher
  - Git
+ - [uv](https://github.com/astral-sh/uv) (see [installation instructions](https://docs.astral.sh/uv/getting-started/installation/))
 
 ### Clone the repository
 ```
@@ -10,30 +11,22 @@ git clone https://github.com/demccormack/weatherdl.git
 cd weatherdl
 ```
 
-### Set up the virtual environment
-On MacOS/Linux
+### Set up the development environment
+uv automatically creates a virtual environment and installs all dependencies from the lock file:
 ```
-python3 -m venv venv
-source venv/bin/activate
-python3 -m pip install -r requirements-prod.txt -r requirements-dev.txt
-```
-or on Windows
-```
-python -m venv venv
-.\venv\Scripts\activate.ps1
-python -m pip install -r requirements-prod.txt -r requirements-dev.txt
+uv sync --all-extras
 ```
 
 ### Run the project
 ```
-python3 src/main.py
+uv run python src/main.py
 ```
 
 ## Testing
 
 The test suite runs in CI on every push. You can also run it locally with
 ```
-pytest
+uv run pytest
 ```
 
 ## Formatting
@@ -41,11 +34,11 @@ pytest
 The code is checked in CI by `pylint` linter and `black` formatter on every
 push. You can also run linting locally with
 ```
-pylint $(git ls-files '*.py')
+uv run pylint $(git ls-files '*.py')
 ```
 and formatting with
 ```
-black .
+uv run black .
 ```
 
 If you're using VS Code, you can make all this happen automatically by installing the following extensions
@@ -53,7 +46,7 @@ If you're using VS Code, you can make all this happen automatically by installin
 - [Pylint](https://marketplace.visualstudio.com/items?itemName=ms-python.pylint)
 - [Black Formatter](https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter)
 
-and setting the following VS Code settings
+VS Code will automatically detect the `.venv` virtual environment created by uv. Set the following VS Code settings for automatic formatting:
 ```
 {
   "files.autoSave": "onFocusChange",
@@ -63,3 +56,27 @@ and setting the following VS Code settings
   "editor.formatOnSave": true
 }
 ```
+
+## Building
+
+To create distributable binaries, use:
+```
+uv run PyInstaller \
+  -n weatherdl \
+  --onefile \
+  --add-data "./.venv/lib/*/site-packages/pptx/templates:pptx/templates" \
+  src/main.py \
+  && cp -f ./config.json ./dist/
+```
+
+## Adding dependencies
+
+- **Production dependencies**: Add to the `dependencies` array in `pyproject.toml`
+- **Development dependencies**: Add to `[project.optional-dependencies.dev]` in `pyproject.toml` 
+- **Build dependencies**: Add to `[project.optional-dependencies.build]` in `pyproject.toml`
+
+After editing `pyproject.toml`, run:
+```
+uv lock
+```
+to update the lock file with resolved versions.
