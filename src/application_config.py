@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from os import path
 
 from pytz import timezone
@@ -23,8 +23,68 @@ def process_slides(items, display_time_zone, start_time):
             - url (str): Fully processed URL ready for download
             - hidden (bool): Whether slide should be hidden
     """
-    # TODO: Implement slide processing logic
-    return []
+    slides = []
+    slide_number = 1
+
+    for item in items:
+        # Get times list, default to single empty string for items without times
+        times = item.get("times", [""])
+
+        for time in times:
+            # Process title - for items with times, append the time
+            title = item["name"]
+            if time:
+                # Convert time from UTC to display timezone for title
+                if item.get("time_zone") == "UTC":
+                    hour = int(time[:2])
+                    minute = int(time[2:4])
+                    # Apply the url_offset for time conversion (usually negative)
+                    url_offset = item.get("url_offset", 0)
+                    adjusted_hour = hour + url_offset
+                    # Handle day rollover
+                    adjusted_hour = adjusted_hour % 24
+                    time_str = f"{adjusted_hour:02d}{minute:02d}"
+                else:
+                    time_str = time
+                title = f"{item['name']} {time_str}"
+
+            # Generate file name
+            file_name_parts = [f"{slide_number:03d}", title]
+            file_name = " ".join(file_name_parts)
+
+            # Use the time specified, or current time if no time specified
+            if time:
+                hour = int(time[:2])
+                minute = int(time[2:4])
+                url_time = start_time.replace(hour=hour, minute=minute)
+            else:
+                url_time = start_time
+
+            # Convert to UTC if needed for URL
+            if item.get("time_zone") == "UTC":
+                # Following original downloader logic: subtract utcoffset to get UTC
+                url_time = url_time - url_time.utcoffset()
+                # Apply URL offset if specified
+                url_offset = item.get("url_offset", 0)
+                if url_offset:
+                    url_time = url_time + timedelta(hours=url_offset)
+
+            url = url_time.strftime(item["url"])
+
+            # Determine hidden status
+            hidden = not item.get("show_by_default", True)
+
+            slide = {
+                "slide_number": slide_number,
+                "title": title,
+                "file_name": file_name,
+                "url": url,
+                "hidden": hidden,
+            }
+            slides.append(slide)
+            slide_number += 1
+
+    return slides
 
 
 class ApplicationConfig:
