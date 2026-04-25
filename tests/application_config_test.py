@@ -25,17 +25,29 @@ class TestProcessSlides:
 
     def test_process_slides_webcam_item(self):
         """Test processing of webcam items (no times array)."""
-        items = [{"name": "Test Webcam", "url": "https://example.com/webcam.jpg"}]
+        items = [
+            {"name": "Test Webcam 1", "url": "https://example.com/webcam1.jpg"},
+            {"name": "Test Webcam 2", "url": "https://example.com/webcam2.jpg"},
+        ]
         slides = process_slides(items, display_time_zone, get_start_time())
 
         assert isinstance(slides, list)
-        assert len(slides) == 1
+        assert len(slides) == 2
 
         assert slides[0]["slide_number"] == 1
-        assert slides[0]["title"] == "Test Webcam"
-        assert slides[0]["file_name"] == "001 Test Webcam"
-        assert slides[0]["url"] == "https://example.com/webcam.jpg"
+        assert slides[1]["slide_number"] == 2
+
+        assert slides[0]["title"] == "Test Webcam 1"
+        assert slides[1]["title"] == "Test Webcam 2"
+
+        assert slides[0]["file_name"] == "001 Test Webcam 1"
+        assert slides[1]["file_name"] == "002 Test Webcam 2"
+
+        assert slides[0]["url"] == "https://example.com/webcam1.jpg"
+        assert slides[1]["url"] == "https://example.com/webcam2.jpg"
+
         assert slides[0]["hidden"] is False
+        assert slides[1]["hidden"] is False
 
     @freezegun.freeze_time("2024-07-20 11:00:00")
     def test_process_slides_weather_item_with_time_zones(self):
