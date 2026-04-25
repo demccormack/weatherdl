@@ -1,6 +1,6 @@
 [project]
 name = "weatherdl"
-version = "v1.3.0"
+version = "v1.4.0"
 description = "Weather download tool"
 readme = "README.md"
 dependencies = [
