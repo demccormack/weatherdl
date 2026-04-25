@@ -6,7 +6,7 @@ Where supported, date/time substitutions must be in the format given by the [str
 
 Each image can have the following settings:
 
- - `time_zone`: Required. A string representing the time zone of the region this weather briefing is for.
+ - `display_time_zone`: Required. A string representing the time zone of the region this weather briefing is for.
  - `working_dir`: Required. The directory in which the downloaded images should be saved, written as an array of directory names. It is relative to the home directory and supports date/time substitutions. It will be created if it doesn't exist.
  - `items`: An array containing information about the images to be downloaded. For each `item`, the following options are supported:
    - `name`: Required. Used in the file name and slide title.

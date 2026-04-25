@@ -103,7 +103,8 @@ class Downloader:
                     self.process_buffer(buffer, basename, url)
 
         time_taken = (
-            self.config.time_zone.fromutc(datetime.utcnow()) - self.config.start_time
+            self.config.display_time_zone.fromutc(datetime.utcnow())
+            - self.config.start_time
         )
         print(f"{self.success_count} images downloaded in {time_taken}.\n")
         if self.failed_items:

@@ -1,5 +1,5 @@
 {
-    "time_zone": "Pacific/Auckland",
+    "display_time_zone": "Pacific/Auckland",
     "working_dir": ["weatherdl_release_test_run"],
     "items": [
         {
