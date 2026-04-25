@@ -51,7 +51,7 @@ class TestProcessSlides:
 
     @freezegun.freeze_time("2024-07-20 11:00:00")
     def test_process_slides_weather_item_nzst(self):
-        """Test processing of weather items with multiple times."""
+        """Test processing of weather items in NZST."""
         items = [
             {
                 "name": "Surface Pressure",
@@ -60,6 +60,7 @@ class TestProcessSlides:
                 "time_zone": "UTC",
                 "url_time_zone": "Pacific/Auckland",
                 "url_offset": -12,
+                "reference_date_offset": -1,
                 "show_by_default": True,
             }
         ]
@@ -78,7 +79,7 @@ class TestProcessSlides:
 
     @freezegun.freeze_time("2024-01-20 11:00:00")
     def test_process_slides_weather_item_nzdt(self):
-        """Test processing of weather items with multiple times."""
+        """Test processing of weather items in NZDT."""
         items = [
             {
                 "name": "Surface Pressure",
@@ -87,6 +88,7 @@ class TestProcessSlides:
                 "time_zone": "UTC",
                 "url_time_zone": "Pacific/Auckland",
                 "url_offset": -12,
+                "reference_date_offset": -2,
                 "show_by_default": True,
             }
         ]
