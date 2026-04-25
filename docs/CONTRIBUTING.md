@@ -1,7 +1,7 @@
 ## Development environment setup
 
 ### Prerequisites
- - Python 3.12 or higher
+ - Python
  - Git
  - [uv](https://github.com/astral-sh/uv) (see [installation instructions](https://docs.astral.sh/uv/getting-started/installation/))
 
