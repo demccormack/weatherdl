@@ -50,7 +50,7 @@ class TestProcessSlides:
         assert slides[1]["hidden"] is False
 
     @freezegun.freeze_time("2024-07-20 11:00:00")
-    def test_process_slides_weather_item_with_time_zones(self):
+    def test_process_slides_weather_item_nzst(self):
         """Test processing of weather items with multiple times."""
         items = [
             {
@@ -73,5 +73,32 @@ class TestProcessSlides:
         assert (
             slides[0]["url"]
             == "https://www.metservice.com/publicData/surfacePressureImage?time=20240719-1800-00.000&analysis=20240719-1800-00.000"
+        )
+        assert slides[0]["hidden"] is False
+
+    @freezegun.freeze_time("2024-01-20 11:00:00")
+    def test_process_slides_weather_item_nzdt(self):
+        """Test processing of weather items with multiple times."""
+        items = [
+            {
+                "name": "Surface Pressure",
+                "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
+                "times": ["1800"],
+                "time_zone": "UTC",
+                "url_time_zone": "Pacific/Auckland",
+                "url_offset": -12,
+                "show_by_default": True,
+            }
+        ]
+        slides = process_slides(items, display_time_zone, get_start_time())
+        assert isinstance(slides, list)
+        assert len(slides) == 1
+
+        assert slides[0]["slide_number"] == 1
+        assert slides[0]["title"] == "Surface Pressure 0700"
+        assert slides[0]["file_name"] == "001 Surface Pressure 0700"
+        assert (
+            slides[0]["url"]
+            == "https://www.metservice.com/publicData/surfacePressureImage?time=20240119-1900-00.000&analysis=20240119-1900-00.000"
         )
         assert slides[0]["hidden"] is False
