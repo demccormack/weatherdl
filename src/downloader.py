@@ -41,6 +41,7 @@ class Downloader:
     def url_from_time(self, item, time):
         is_utc = item.get("utc")
         url_from_config = item.get("url")
+        offset = item.get("offset")
 
         date_time_for_url = self.config.start_time
         if self.is_provided(time):
@@ -50,6 +51,8 @@ class Downloader:
         if self.includes_day_shift(time):
             days = int(time[5:6])
             date_time_for_url = date_time_for_url + timedelta(days=days)
+        if offset is not None:
+            date_time_for_url += timedelta(hours=offset)
         if is_utc:
             date_time_for_url -= date_time_for_url.utcoffset()
 
