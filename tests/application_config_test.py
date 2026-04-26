@@ -49,22 +49,24 @@ class TestProcessSlides:
         assert slides[0]["hidden"] is False
         assert slides[1]["hidden"] is False
 
+    # Shared test data for timezone tests
+    weather_items = [
+        {
+            "name": "Surface Pressure",
+            "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
+            "times": ["1800"],
+            "time_zone": "UTC",
+            "url_time_zone": "Pacific/Auckland",
+            "url_offset": -12,
+            "reference_date_offset": -1,
+            "show_by_default": True,
+        }
+    ]
+
     @freezegun.freeze_time("2024-07-20 11:00:00")
     def test_process_slides_weather_item_nzst(self):
         """Test processing of weather items in NZST."""
-        items = [
-            {
-                "name": "Surface Pressure",
-                "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
-                "times": ["1800"],
-                "time_zone": "UTC",
-                "url_time_zone": "Pacific/Auckland",
-                "url_offset": -12,
-                "reference_date_offset": -1,
-                "show_by_default": True,
-            }
-        ]
-        slides = process_slides(items, display_time_zone, get_start_time())
+        slides = process_slides(self.weather_items, display_time_zone, get_start_time())
         assert isinstance(slides, list)
         assert len(slides) == 1
 
@@ -80,19 +82,7 @@ class TestProcessSlides:
     @freezegun.freeze_time("2024-01-20 11:00:00")
     def test_process_slides_weather_item_nzdt(self):
         """Test processing of weather items in NZDT."""
-        items = [
-            {
-                "name": "Surface Pressure",
-                "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
-                "times": ["1800"],
-                "time_zone": "UTC",
-                "url_time_zone": "Pacific/Auckland",
-                "url_offset": -12,
-                "reference_date_offset": -2,
-                "show_by_default": True,
-            }
-        ]
-        slides = process_slides(items, display_time_zone, get_start_time())
+        slides = process_slides(self.weather_items, display_time_zone, get_start_time())
         assert isinstance(slides, list)
         assert len(slides) == 1
 
