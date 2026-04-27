@@ -19,7 +19,7 @@ dev = [
     "autopep8==2.3.2",
 ]
 build = [
-    "pyinstaller==6.19.0",
+    "pyinstaller==6.20.0",
 ]
 
 [tool.uv]
