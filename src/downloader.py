@@ -78,29 +78,20 @@ class Downloader:
         if not path.exists(img_dir):
             mkdir(img_dir)
 
-        index = 0
+        for slide in self.config.slides:
+            basename = slide["file_name"]
 
-        for item in self.config.items:
-            for time in item.get("times", [""]):
-                index += 1
+            if not self.file_exists_with_basename(basename):
+                url = slide["url"]
 
-                padded_slide_number = f"{index:03d}"
-                slide_name = item["name"]
-                basename = " ".join(
-                    filter(None, [padded_slide_number, slide_name, time])
-                )
+                buffer = None
+                try:
+                    buffer = requests.get(url, timeout=5)
+                except Exception as error:  # pylint: disable=broad-except
+                    self.handle_unavailable_image(error, basename, url)
+                    continue
 
-                if not self.file_exists_with_basename(basename):
-                    url = self.url_from_time(item, time)
-
-                    buffer = None
-                    try:
-                        buffer = requests.get(url, timeout=5)
-                    except Exception as error:  # pylint: disable=broad-except
-                        self.handle_unavailable_image(error, basename, url)
-                        continue
-
-                    self.process_buffer(buffer, basename, url)
+                self.process_buffer(buffer, basename, url)
 
         time_taken = (
             self.config.display_time_zone.fromutc(datetime.utcnow())
