@@ -63,7 +63,7 @@ class TestProcessSlides:
         }
     ]
 
-    @freezegun.freeze_time("2024-07-20 11:00:00")
+    @freezegun.freeze_time("2024-07-20 11:00:00", tz_offset=12)
     def test_process_slides_weather_item_nzst(self):
         """Test processing of weather items in NZST."""
         slides = process_slides(self.weather_items, display_time_zone, get_start_time())
@@ -79,7 +79,7 @@ class TestProcessSlides:
         )
         assert slides[0]["hidden"] is False
 
-    @freezegun.freeze_time("2024-01-20 11:00:00")
+    @freezegun.freeze_time("2024-01-20 11:00:00", tz_offset=13)
     def test_process_slides_weather_item_nzdt(self):
         """Test processing of weather items in NZDT."""
         slides = process_slides(self.weather_items, display_time_zone, get_start_time())
