@@ -49,6 +49,44 @@ class TestProcessSlides:
         assert slides[0]["hidden"] is False
         assert slides[1]["hidden"] is False
 
+    @freezegun.freeze_time("2024-07-19 21:20:00", tz_offset=12)
+    def test_process_slides_with_show_by_default(self):
+        items = [
+            {
+                "name": "Sounding",
+                "image_includes_caption": True,
+                "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/sounding1.curr.%H%Mlst.w2.png",
+                "times": ["1200", "1300"],
+                "show_by_default": ["1300"],
+            }
+        ]
+        start_time = get_start_time()
+        assert (
+            start_time.strftime("%Y-%m-%d %H:%M:%S %Z%z")
+            == "2024-07-20 09:20:00 NZST+1200"
+        )
+        slides = process_slides(items, display_time_zone, start_time)
+        assert isinstance(slides, list)
+        assert len(slides) == 2
+
+        assert slides[0]["slide_number"] == 1
+        assert slides[0]["title"] is None
+        assert slides[0]["file_name"] == "001 Sounding 1200"
+        assert (
+            slides[0]["url"]
+            == "http://rasp.nz/rasp/regions/NZSOUTH_S+0/2024/20240720/sounding1.curr.1200lst.w2.png"
+        )
+        assert slides[0]["hidden"] is True
+
+        assert slides[1]["slide_number"] == 2
+        assert slides[1]["title"] is None
+        assert slides[1]["file_name"] == "002 Sounding 1300"
+        assert (
+            slides[1]["url"]
+            == "http://rasp.nz/rasp/regions/NZSOUTH_S+0/2024/20240720/sounding1.curr.1300lst.w2.png"
+        )
+        assert slides[1]["hidden"] is False
+
     # Shared test data for timezone tests
     weather_items = [
         {
