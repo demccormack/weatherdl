@@ -94,12 +94,20 @@ def process_slides(items, display_time_zone, start_time):
                 "title": None if item.get("image_includes_caption") else title,
                 "file_name": file_name,
                 "url": url,
-                "hidden": hidden,
+                "hidden": set_hidden(item, time),
             }
             slides.append(slide)
             slide_number += 1
 
     return slides
+
+
+def set_hidden(item, time):
+    show_by_default = item.get("show_by_default") and (
+        item.get("show_by_default") is True
+        or item.get("show_by_default").count(time) > 0
+    )
+    return not show_by_default
 
 
 class ApplicationConfig:

@@ -18,7 +18,7 @@ class Briefing:
 
     def __init__(self, config):
         self._img_dir = config.img_dir
-        self._items = config.items
+        self._items = config.slides
 
         self._presentation = Presentation()
         self._layout_with_title = self._presentation.slide_layouts[5]
@@ -49,24 +49,24 @@ class Briefing:
 
         return matching_files[0] if len(matching_files) == 1 else None
 
-    def add_slide(self, item, time):
-        image_includes_caption = item.get("image_includes_caption")
+    def add_slide(self, item):
+        title = item.get("title")
 
         slide = self._presentation.slides.add_slide(
-            self._layout_blank if image_includes_caption else self._layout_with_title
+            self._layout_with_title if title else self._layout_blank
         )
 
-        if not image_includes_caption:
-            title = slide.shapes.title
-            title_text = title.text_frame.paragraphs[0].add_run()
+        if title:
+            title_shape = slide.shapes.title
+            title_text = title_shape.text_frame.paragraphs[0].add_run()
             title_text.font.size = Pt(28)
             title_text.font.bold = True
             title_text.font.color.rgb = text_color
-            title.fill.solid()
-            title.fill.fore_color.rgb = background_color
-            title.line.color.rgb = text_color
-            title.line.width = Pt(1.5)
-            title_text.text = " ".join(filter(None, [item["name"], time]))
+            title_shape.fill.solid()
+            title_shape.fill.fore_color.rgb = background_color
+            title_shape.line.color.rgb = text_color
+            title_shape.line.width = Pt(1.5)
+            title_text.text = title
 
         return slide
 
@@ -96,12 +96,9 @@ class Briefing:
             if space > max_top_gap:
                 pic.top = max_top_gap
 
-    def set_visibility(self, item, time, file_name):
-        show_by_default = item.get("show_by_default") and (
-            item.get("show_by_default") is True
-            or item.get("show_by_default").count(time) > 0
-        )
-        if not (file_name and show_by_default):
+    def set_visibility(self, item, file_name):
+        hidden = item.get("hidden")
+        if (not file_name) or hidden:
             self._current_slide._element.set(  # pylint: disable=protected-access
                 "show", "0"
             )
@@ -110,17 +107,14 @@ class Briefing:
         print("\nBuilding presentation")
 
         for item in self._items:
-            for time in item.get("times", [""]):
-                self._current_slide = self.add_slide(item, time)
-                file_name = self.current_img_file()
-                self.set_visibility(item, time, file_name)
+            self._current_slide = self.add_slide(item)
+            file_name = self.current_img_file()
+            self.set_visibility(item, file_name)
 
-                if file_name:
-                    self.insert_image(file_name)
-                else:
-                    print(
-                        f"No image for {self.current_slide_number():03d} {item['name']} {time}"
-                    )
+            if file_name:
+                self.insert_image(file_name)
+            else:
+                print(f"No image for {item.get('file_name')}")
 
     def save_as(self, file_name):
         name = unused_file_name_like(file_name, listdir(self._img_dir))

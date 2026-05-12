@@ -46,8 +46,8 @@ class TestProcessSlides:
         assert slides[0]["url"] == "https://example.com/webcam1.jpg"
         assert slides[1]["url"] == "https://example.com/webcam2.jpg"
 
-        assert slides[0]["hidden"] is False
-        assert slides[1]["hidden"] is False
+        assert slides[0]["hidden"] is True
+        assert slides[1]["hidden"] is True
 
     @freezegun.freeze_time("2024-07-19 21:20:00", tz_offset=12)
     def test_process_slides_with_show_by_default(self):
