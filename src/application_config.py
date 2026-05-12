@@ -91,7 +91,7 @@ def process_slides(items, display_time_zone, start_time):
 
             slide = {
                 "slide_number": slide_number,
-                "title": title,
+                "title": None if item.get("image_includes_caption") else title,
                 "file_name": file_name,
                 "url": url,
                 "hidden": hidden,
