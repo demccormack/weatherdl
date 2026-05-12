@@ -58,15 +58,20 @@ class TestProcessSlides:
             "time_zone": "UTC",
             "url_time_zone": "Pacific/Auckland",
             "url_offset": -12,
-            "reference_date_offset": -1,
             "show_by_default": True,
         }
     ]
 
-    @freezegun.freeze_time("2024-07-20 11:00:00", tz_offset=12)
+    @freezegun.freeze_time("2024-07-19 21:20:00", tz_offset=12)
     def test_process_slides_weather_item_nzst(self):
         """Test processing of weather items in NZST."""
-        slides = process_slides(self.weather_items, display_time_zone, get_start_time())
+        start_time = get_start_time()
+        assert (
+            start_time.strftime("%Y-%m-%d %H:%M:%S %Z%z")
+            == "2024-07-20 09:20:00 NZST+1200"
+        )
+
+        slides = process_slides(self.weather_items, display_time_zone, start_time)
         assert isinstance(slides, list)
         assert len(slides) == 1
 
@@ -79,10 +84,16 @@ class TestProcessSlides:
         )
         assert slides[0]["hidden"] is False
 
-    @freezegun.freeze_time("2024-01-20 11:00:00", tz_offset=13)
+    @freezegun.freeze_time("2024-01-19 20:20:00", tz_offset=13)
     def test_process_slides_weather_item_nzdt(self):
         """Test processing of weather items in NZDT."""
-        slides = process_slides(self.weather_items, display_time_zone, get_start_time())
+        start_time = get_start_time()
+        assert (
+            start_time.strftime("%Y-%m-%d %H:%M:%S %Z%z")
+            == "2024-01-20 09:20:00 NZDT+1300"
+        )
+
+        slides = process_slides(self.weather_items, display_time_zone, start_time)
         assert isinstance(slides, list)
         assert len(slides) == 1
 

@@ -41,18 +41,12 @@ def process_slides(items, display_time_zone, start_time):
                 minute = int(time[2:4])
 
                 # Get the timezone for this item
-                item_tz_name = item.get("time_zone", "UTC")
+                item_tz_name = item.get("time_zone", display_time_zone.zone)
                 item_tz = timezone(item_tz_name)
 
-                # Apply reference date offset (e.g., -1 for yesterday's data)
-                reference_date_offset = item.get("reference_date_offset", 0)
-                date_part = start_time.date() + timedelta(days=reference_date_offset)
-
                 # Create reference datetime directly in the item's timezone
-                reference_datetime = item_tz.localize(
-                    datetime.combine(
-                        date_part, datetime.min.time().replace(hour=hour, minute=minute)
-                    )
+                reference_datetime = start_time.astimezone(item_tz).replace(
+                    hour=hour, minute=minute, second=0, microsecond=0
                 )
 
                 # For title: Convert reference datetime to display timezone
