@@ -32,23 +32,6 @@ class Downloader:
         allowed_names = f"{path.join(self.config.img_dir, basename)}*"
         return len(glob(allowed_names)) > 0
 
-    def is_provided(self, time):
-        return len(time) > 0
-
-    def url_from_time(self, item, time):
-        is_utc = item.get("utc")
-        url_from_config = item.get("url")
-
-        date_time_for_url = self.config.start_time
-        if self.is_provided(time):
-            hour = int(time[0:2])
-            minute = int(time[2:4])
-            date_time_for_url = date_time_for_url.replace(hour=hour, minute=minute)
-        if is_utc:
-            date_time_for_url -= date_time_for_url.utcoffset()
-
-        return date_time_for_url.strftime(url_from_config)
-
     def process_buffer(self, buffer, basename, url):
         kind = filetype.guess(buffer.content)
 
