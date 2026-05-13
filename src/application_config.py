@@ -39,6 +39,7 @@ def process_slides(items, display_time_zone, start_time):
                 # Create timezone-aware reference datetime from time and time_zone
                 hour = int(time[:2])
                 minute = int(time[2:4])
+                day_shift = int(time[5:6]) if len(time) > 5 else 0
 
                 # Get the timezone for this item
                 item_tz_name = item.get("time_zone", display_time_zone.zone)
@@ -47,11 +48,13 @@ def process_slides(items, display_time_zone, start_time):
                 # Create reference datetime directly in the item's timezone
                 reference_datetime = start_time.astimezone(item_tz).replace(
                     hour=hour, minute=minute, second=0, microsecond=0
-                )
+                ) + timedelta(days=day_shift)
 
                 # For title: Convert reference datetime to display timezone
                 title_datetime = reference_datetime.astimezone(display_time_zone)
-                time_str = title_datetime.strftime("%H%M")
+                time_str = title_datetime.strftime(
+                    "%H%M" if day_shift == 0 else "%H%M %A"
+                )
                 title = f"{item['name']} {time_str}"
             else:
                 title = item["name"]

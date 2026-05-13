@@ -143,3 +143,31 @@ class TestProcessSlides:
             == "https://www.metservice.com/publicData/surfacePressureImage?time=20240119-1900-00.000&analysis=20240119-1900-00.000"
         )
         assert slides[0]["hidden"] is False
+
+    @freezegun.freeze_time("2024-01-19 20:20:00", tz_offset=13)
+    def test_process_slides_with_day_shift(self):
+        """Test processing of items with day shift in URL."""
+        items = [
+            {
+                "name": "Surface Pressure",
+                "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
+                "times": ["1200+1"],
+                "time_zone": "UTC",
+                "url_time_zone": "Pacific/Auckland",
+                "url_offset": -12,
+                "show_by_default": True,
+            }
+        ]
+        start_time = get_start_time()
+        slides = process_slides(items, display_time_zone, start_time)
+        assert isinstance(slides, list)
+        assert len(slides) == 1
+
+        assert slides[0]["slide_number"] == 1
+        assert slides[0]["title"] == "Surface Pressure 0100 Sunday"
+        assert slides[0]["file_name"] == "001 Surface Pressure 0100 Sunday"
+        assert (
+            slides[0]["url"]
+            == "https://www.metservice.com/publicData/surfacePressureImage?time=20240120-1300-00.000&analysis=20240120-1300-00.000"
+        )
+        assert slides[0]["hidden"] is False
