@@ -36,16 +36,13 @@ def process_slides(items, display_time_zone, start_time):
             # Create timezone-aware reference datetime if time is specified
             reference_datetime = None
             if time:
-                # Create timezone-aware reference datetime from time and time_zone
                 hour = int(time[:2])
                 minute = int(time[2:4])
                 day_shift = int(time[5:6]) if len(time) > 5 else 0
 
-                # Get the timezone for this item
+                # Create reference datetime
                 item_tz_name = item.get("time_zone", display_time_zone.zone)
                 item_tz = timezone(item_tz_name)
-
-                # Create reference datetime directly in the item's timezone
                 reference_datetime = start_time.astimezone(item_tz).replace(
                     hour=hour, minute=minute, second=0, microsecond=0
                 ) + timedelta(days=day_shift)
@@ -88,9 +85,6 @@ def process_slides(items, display_time_zone, start_time):
                 url_time = start_time
 
             url = url_time.strftime(item["url"])
-
-            # Determine hidden status
-            hidden = not item.get("show_by_default", True)
 
             slide = {
                 "slide_number": slide_number,
