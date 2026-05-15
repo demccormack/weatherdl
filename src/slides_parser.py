@@ -17,7 +17,7 @@ class SlidesParser:
         list: List of slide dictionaries with keys:
             - slide_number (int): Sequential number starting from 1
             - title (str|None): Slide title, null when omitting
-            - file_name (str): Generated filename for download
+            - file_name (str): Generated filename for download, without the extension
             - url (str): Fully processed URL ready for download
             - hidden (bool): Whether slide should be hidden
     """
@@ -43,7 +43,7 @@ class SlidesParser:
         title = self._get_title(item, time, reference_datetime)
         file_name = self._get_file_name(slide_number, title)
         url = self._get_url(item, reference_datetime)
-        hidden = self._set_hidden(item, time)
+        hidden = self._get_hidden(item, time)
         return {
             "slide_number": slide_number,
             "title": None if item.get("image_includes_caption") else title,
@@ -71,8 +71,7 @@ class SlidesParser:
             title_datetime = reference_datetime.astimezone(self.display_time_zone)
             time_str = title_datetime.strftime("%H%M" if day_shift == 0 else "%H%M %A")
             return f"{item['name']} {time_str}"
-        else:
-            return item["name"]
+        return item["name"]
 
     def _get_file_name(self, slide_number, title):
         return f"{slide_number:03d} {title}"
@@ -85,18 +84,14 @@ class SlidesParser:
             if url_time_zone_name:
                 url_time_zone = timezone(url_time_zone_name)
                 url_time = reference_datetime.astimezone(url_time_zone)
-                if url_offset:
-                    url_time = url_time + timedelta(hours=url_offset)
+                url_time = url_time + timedelta(hours=url_offset)
             else:
-                if url_offset:
-                    url_time = reference_datetime + timedelta(hours=url_offset)
-                else:
-                    url_time = reference_datetime
+                url_time = reference_datetime + timedelta(hours=url_offset)
         else:
             url_time = self.start_time
         return url_time.strftime(url)
 
-    def _set_hidden(self, item, time):
+    def _get_hidden(self, item, time):
         show_by_default = item.get("show_by_default") and (
             item.get("show_by_default") is True
             or item.get("show_by_default").count(time) > 0
