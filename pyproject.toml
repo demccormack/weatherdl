@@ -33,3 +33,8 @@ pythonpath = "src"
 
 [tool.pylint.'tests/*.py']
 disable = ["import-error", "missing-function-docstring", "missing-module-docstring"]
+
+[dependency-groups]
+dev = [
+    "freezegun>=1.5.5",
+]

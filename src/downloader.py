@@ -1,10 +1,11 @@
 # pylint: disable=missing-module-docstring
-from datetime import datetime, timedelta
 from glob import glob
 from os import mkdir, path
 
 import filetype
 import requests
+
+from utils import current_time
 
 # pylint: disable=missing-function-docstring
 
@@ -32,29 +33,6 @@ class Downloader:
         allowed_names = f"{path.join(self.config.img_dir, basename)}*"
         return len(glob(allowed_names)) > 0
 
-    def is_provided(self, time):
-        return len(time) > 0
-
-    def includes_day_shift(self, time):
-        return len(time) > 4
-
-    def url_from_time(self, item, time):
-        is_utc = item.get("utc")
-        url_from_config = item.get("url")
-
-        date_time_for_url = self.config.start_time
-        if self.is_provided(time):
-            hour = int(time[0:2])
-            minute = int(time[2:4])
-            date_time_for_url = date_time_for_url.replace(hour=hour, minute=minute)
-        if self.includes_day_shift(time):
-            days = int(time[5:6])
-            date_time_for_url = date_time_for_url + timedelta(days=days)
-        if is_utc:
-            date_time_for_url -= date_time_for_url.utcoffset()
-
-        return date_time_for_url.strftime(url_from_config)
-
     def process_buffer(self, buffer, basename, url):
         kind = filetype.guess(buffer.content)
 
@@ -78,32 +56,23 @@ class Downloader:
         if not path.exists(img_dir):
             mkdir(img_dir)
 
-        index = 0
+        for slide in self.config.slides:
+            basename = slide["file_name"]
 
-        for item in self.config.items:
-            for time in item.get("times", [""]):
-                index += 1
+            if not self.file_exists_with_basename(basename):
+                url = slide["url"]
 
-                padded_slide_number = f"{index:03d}"
-                slide_name = item["name"]
-                basename = " ".join(
-                    filter(None, [padded_slide_number, slide_name, time])
-                )
+                buffer = None
+                try:
+                    buffer = requests.get(url, timeout=5)
+                except Exception as error:  # pylint: disable=broad-except
+                    self.handle_unavailable_image(error, basename, url)
+                    continue
 
-                if not self.file_exists_with_basename(basename):
-                    url = self.url_from_time(item, time)
-
-                    buffer = None
-                    try:
-                        buffer = requests.get(url, timeout=5)
-                    except Exception as error:  # pylint: disable=broad-except
-                        self.handle_unavailable_image(error, basename, url)
-                        continue
-
-                    self.process_buffer(buffer, basename, url)
+                self.process_buffer(buffer, basename, url)
 
         time_taken = (
-            self.config.time_zone.fromutc(datetime.utcnow()) - self.config.start_time
+            current_time(self.config.display_time_zone) - self.config.start_time
         )
         print(f"{self.success_count} images downloaded in {time_taken}.\n")
         if self.failed_items:
