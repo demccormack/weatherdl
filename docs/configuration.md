@@ -11,7 +11,9 @@ Each image can have the following settings:
  - `items`: An array containing information about the images to be downloaded. For each `item`, the following options are supported:
    - `name`: Required. Used in the file name and slide title.
    - `url`: Required. Supports date/time substitutions.
-   - `times`: Optional. An array of local times to be substituted into the URL. More than one time means more than one image will be downloaded.
-   - `utc`: Optional. Set this to a truthy value (like `true`) to tell the downloader that the times must be converted to UTC before being substituted into the URL.
+   - `times`: Optional. An array of invariant reference times to be substituted into the URL. More than one time means more than one image will be downloaded.
+   - `time_zone`: Optional. The time zone of the image's invariant reference time. Choose this so that you don't have to change the config file when the clocks change for daylight saving. If omitted it will default to the `display_time_zone`.
+   - `url_time_zone`: Optional. The invariant reference time will be converted to this time zone before substitution into the URL.
+   - `url_offset`: Optional. An additional offset to apply after time zone conversion, before substitution into the URL. Phew this is complicated!
    - `image_includes_caption`: Optional. Set this to a truthy value if the title box should be omitted from the slide.
    - `show_by_default`: Optional. Slides are hidden by default (because a briefing should be brief). Set this to `true` to show all slides for this item, or provide an array of the times for which slides should be shown.

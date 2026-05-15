@@ -45,6 +45,7 @@ class TestSlidesParser:
             {
                 "name": "Sounding",
                 "image_includes_caption": True,
+                # pylint: disable=line-too-long
                 "url": "http://rasp.nz/rasp/regions/NZSOUTH_S+0/%Y/%Y%m%d/sounding1.curr.%H%Mlst.w2.png",
                 "times": ["1200", "1300"],
                 "show_by_default": ["1300"],
@@ -78,6 +79,7 @@ class TestSlidesParser:
     weather_items = [
         {
             "name": "Surface Pressure",
+            # pylint: disable=line-too-long
             "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
             "times": ["1800"],
             "time_zone": "UTC",
@@ -102,6 +104,7 @@ class TestSlidesParser:
         assert slides[0]["file_name"] == "001 Surface Pressure 0600"
         assert (
             slides[0]["url"]
+            # pylint: disable=line-too-long
             == "https://www.metservice.com/publicData/surfacePressureImage?time=20240719-1800-00.000&analysis=20240719-1800-00.000"
         )
         assert slides[0]["hidden"] is False
@@ -121,6 +124,7 @@ class TestSlidesParser:
         assert slides[0]["file_name"] == "001 Surface Pressure 0700"
         assert (
             slides[0]["url"]
+            # pylint: disable=line-too-long
             == "https://www.metservice.com/publicData/surfacePressureImage?time=20240119-1900-00.000&analysis=20240119-1900-00.000"
         )
         assert slides[0]["hidden"] is False
@@ -130,6 +134,7 @@ class TestSlidesParser:
         items = [
             {
                 "name": "Surface Pressure",
+                # pylint: disable=line-too-long
                 "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
                 "times": ["1200+1"],
                 "time_zone": "UTC",
@@ -151,6 +156,7 @@ class TestSlidesParser:
         assert slides[0]["file_name"] == "001 Surface Pressure 0100 Sunday"
         assert (
             slides[0]["url"]
+            # pylint: disable=line-too-long
             == "https://www.metservice.com/publicData/surfacePressureImage?time=20240120-1300-00.000&analysis=20240120-1300-00.000"
         )
         assert slides[0]["hidden"] is False
