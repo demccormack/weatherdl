@@ -33,7 +33,6 @@ class ApplicationConfig:
         self.display_time_zone = timezone(self.config["display_time_zone"])
         self.start_time = current_time(self.display_time_zone)
         self.img_dir = self.start_time.strftime(img_dir_path)
-        self.items = self.config["items"]
         self.slides = SlidesParser(
             self.config["items"], self.display_time_zone, self.start_time
         ).parse()
