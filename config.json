@@ -88,7 +88,7 @@
         {
             "name": "Surface Pressure",
             "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
-            "times": ["0000"],
+            "times": ["0000+1"],
             "time_zone": "UTC",
             "url_time_zone": "Pacific/Auckland",
             "url_offset": -12,
