@@ -14,8 +14,7 @@
         {
             "name": "Infrared",
             "url": "https://www.metservice.com/publicData/australiaInfraredColourImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
-            "times": ["1700", "1800", "1900", "2000"],
-            "time_zone": "UTC",
+            "times": ["0600", "0700", "0800", "0900"],
             "url_time_zone": "Pacific/Auckland",
             "url_offset": -12,
             "show_by_default": true
@@ -23,8 +22,7 @@
         {
             "name": "Visible",
             "url": "https://www.metservice.com/publicData/nzVisibleSatelliteImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
-            "times": ["1800", "1900", "2000"],
-            "time_zone": "UTC",
+            "times": ["0600", "0700", "0800", "0900"],
             "url_time_zone": "Pacific/Auckland",
             "url_offset": -12,
             "show_by_default": true
