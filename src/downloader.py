@@ -1,10 +1,11 @@
 # pylint: disable=missing-module-docstring
-from datetime import datetime, timedelta
 from glob import glob
 from os import mkdir, path
 
 import filetype
 import requests
+
+from utils import current_time
 
 # pylint: disable=missing-function-docstring
 
@@ -71,8 +72,7 @@ class Downloader:
                 self.process_buffer(buffer, basename, url)
 
         time_taken = (
-            self.config.display_time_zone.fromutc(datetime.utcnow())
-            - self.config.start_time
+            current_time(self.config.display_time_zone) - self.config.start_time
         )
         print(f"{self.success_count} images downloaded in {time_taken}.\n")
         if self.failed_items:

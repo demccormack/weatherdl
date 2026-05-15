@@ -1,5 +1,10 @@
 import sys
+from datetime import datetime
 from os import path
+
+
+def current_time(display_time_zone):
+    return display_time_zone.localize(datetime.now())
 
 
 def get_config_path():

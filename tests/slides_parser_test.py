@@ -1,16 +1,10 @@
-from datetime import datetime
-
 import freezegun
 from pytz import timezone
 
 from slides_parser import SlidesParser
+from utils import current_time
 
 display_time_zone = timezone("Pacific/Auckland")
-
-
-def get_start_time():
-    """Helper function to get a start time like ApplicationConfig.start_time."""
-    return display_time_zone.fromutc(datetime.utcnow())
 
 
 class TestSlidesParser:
@@ -18,7 +12,9 @@ class TestSlidesParser:
 
     def test_returns_list(self):
         items = []
-        slides = SlidesParser(items, display_time_zone, get_start_time()).parse()
+        slides = SlidesParser(
+            items, display_time_zone, current_time(display_time_zone)
+        ).parse()
         assert isinstance(slides, list)
         assert len(slides) == 0
 
@@ -27,7 +23,9 @@ class TestSlidesParser:
             {"name": "Test Webcam 1", "url": "https://example.com/webcam1.jpg"},
             {"name": "Test Webcam 2", "url": "https://example.com/webcam2.jpg"},
         ]
-        slides = SlidesParser(items, display_time_zone, get_start_time()).parse()
+        slides = SlidesParser(
+            items, display_time_zone, current_time(display_time_zone)
+        ).parse()
         assert isinstance(slides, list)
         assert len(slides) == 2
         assert slides[0]["slide_number"] == 1
@@ -52,7 +50,7 @@ class TestSlidesParser:
                 "show_by_default": ["1300"],
             }
         ]
-        start_time = get_start_time()
+        start_time = current_time(display_time_zone)
         assert (
             start_time.strftime("%Y-%m-%d %H:%M:%S %Z%z")
             == "2024-07-20 09:20:00 NZST+1200"
@@ -91,7 +89,7 @@ class TestSlidesParser:
 
     @freezegun.freeze_time("2024-07-19 21:20:00", tz_offset=12)
     def test_weather_item_nzst(self):
-        start_time = get_start_time()
+        start_time = current_time(display_time_zone)
         assert (
             start_time.strftime("%Y-%m-%d %H:%M:%S %Z%z")
             == "2024-07-20 09:20:00 NZST+1200"
@@ -110,7 +108,7 @@ class TestSlidesParser:
 
     @freezegun.freeze_time("2024-01-19 20:20:00", tz_offset=13)
     def test_weather_item_nzdt(self):
-        start_time = get_start_time()
+        start_time = current_time(display_time_zone)
         assert (
             start_time.strftime("%Y-%m-%d %H:%M:%S %Z%z")
             == "2024-01-20 09:20:00 NZDT+1300"
@@ -140,7 +138,11 @@ class TestSlidesParser:
                 "show_by_default": True,
             }
         ]
-        start_time = get_start_time()
+        start_time = current_time(display_time_zone)
+        assert (
+            start_time.strftime("%Y-%m-%d %H:%M:%S %Z%z")
+            == "2024-01-20 09:20:00 NZDT+1300"
+        )
         slides = SlidesParser(items, display_time_zone, start_time).parse()
         assert isinstance(slides, list)
         assert len(slides) == 1

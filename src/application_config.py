@@ -1,10 +1,10 @@
 import json
-from datetime import datetime
 from os import path
 
 from pytz import timezone
 
 from slides_parser import SlidesParser
+from utils import current_time
 
 # pylint: disable=too-few-public-methods
 
@@ -31,7 +31,7 @@ class ApplicationConfig:
         img_dir_path = path.join(home, *self.config["working_dir"])
 
         self.display_time_zone = timezone(self.config["display_time_zone"])
-        self.start_time = self.display_time_zone.fromutc(datetime.utcnow())
+        self.start_time = current_time(self.display_time_zone)
         self.img_dir = self.start_time.strftime(img_dir_path)
         self.items = self.config["items"]
         self.slides = SlidesParser(
