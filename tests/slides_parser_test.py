@@ -3,7 +3,7 @@ from datetime import datetime
 import freezegun
 from pytz import timezone
 
-from application_config import process_slides
+from slides_parser import SlidesParser
 
 display_time_zone = timezone("Pacific/Auckland")
 
@@ -13,44 +13,36 @@ def get_start_time():
     return display_time_zone.fromutc(datetime.utcnow())
 
 
-class TestProcessSlides:
-    """Test suite for process_slides function."""
+class TestSlidesParser:
+    """Test suite for SlidesParser class."""
 
-    def test_process_slides_returns_list(self):
-        """Test that process_slides returns a list."""
+    def test_returns_list(self):
         items = []
-        slides = process_slides(items, display_time_zone, get_start_time())
+        slides = SlidesParser(items, display_time_zone, get_start_time()).parse()
         assert isinstance(slides, list)
         assert len(slides) == 0
 
-    def test_process_slides_webcam_item(self):
-        """Test processing of webcam items (no times array)."""
+    def test_webcam_item(self):
         items = [
             {"name": "Test Webcam 1", "url": "https://example.com/webcam1.jpg"},
             {"name": "Test Webcam 2", "url": "https://example.com/webcam2.jpg"},
         ]
-        slides = process_slides(items, display_time_zone, get_start_time())
-
+        slides = SlidesParser(items, display_time_zone, get_start_time()).parse()
         assert isinstance(slides, list)
         assert len(slides) == 2
-
         assert slides[0]["slide_number"] == 1
         assert slides[1]["slide_number"] == 2
-
         assert slides[0]["title"] == "Test Webcam 1"
         assert slides[1]["title"] == "Test Webcam 2"
-
         assert slides[0]["file_name"] == "001 Test Webcam 1"
         assert slides[1]["file_name"] == "002 Test Webcam 2"
-
         assert slides[0]["url"] == "https://example.com/webcam1.jpg"
         assert slides[1]["url"] == "https://example.com/webcam2.jpg"
-
         assert slides[0]["hidden"] is True
         assert slides[1]["hidden"] is True
 
     @freezegun.freeze_time("2024-07-19 21:20:00", tz_offset=12)
-    def test_process_slides_with_show_by_default(self):
+    def test_with_show_by_default(self):
         items = [
             {
                 "name": "Sounding",
@@ -65,10 +57,9 @@ class TestProcessSlides:
             start_time.strftime("%Y-%m-%d %H:%M:%S %Z%z")
             == "2024-07-20 09:20:00 NZST+1200"
         )
-        slides = process_slides(items, display_time_zone, start_time)
+        slides = SlidesParser(items, display_time_zone, start_time).parse()
         assert isinstance(slides, list)
         assert len(slides) == 2
-
         assert slides[0]["slide_number"] == 1
         assert slides[0]["title"] is None
         assert slides[0]["file_name"] == "001 Sounding 1200"
@@ -77,7 +68,6 @@ class TestProcessSlides:
             == "http://rasp.nz/rasp/regions/NZSOUTH_S+0/2024/20240720/sounding1.curr.1200lst.w2.png"
         )
         assert slides[0]["hidden"] is True
-
         assert slides[1]["slide_number"] == 2
         assert slides[1]["title"] is None
         assert slides[1]["file_name"] == "002 Sounding 1300"
@@ -87,7 +77,6 @@ class TestProcessSlides:
         )
         assert slides[1]["hidden"] is False
 
-    # Shared test data for timezone tests
     weather_items = [
         {
             "name": "Surface Pressure",
@@ -101,18 +90,15 @@ class TestProcessSlides:
     ]
 
     @freezegun.freeze_time("2024-07-19 21:20:00", tz_offset=12)
-    def test_process_slides_weather_item_nzst(self):
-        """Test processing of weather items in NZST."""
+    def test_weather_item_nzst(self):
         start_time = get_start_time()
         assert (
             start_time.strftime("%Y-%m-%d %H:%M:%S %Z%z")
             == "2024-07-20 09:20:00 NZST+1200"
         )
-
-        slides = process_slides(self.weather_items, display_time_zone, start_time)
+        slides = SlidesParser(self.weather_items, display_time_zone, start_time).parse()
         assert isinstance(slides, list)
         assert len(slides) == 1
-
         assert slides[0]["slide_number"] == 1
         assert slides[0]["title"] == "Surface Pressure 0600"
         assert slides[0]["file_name"] == "001 Surface Pressure 0600"
@@ -123,18 +109,15 @@ class TestProcessSlides:
         assert slides[0]["hidden"] is False
 
     @freezegun.freeze_time("2024-01-19 20:20:00", tz_offset=13)
-    def test_process_slides_weather_item_nzdt(self):
-        """Test processing of weather items in NZDT."""
+    def test_weather_item_nzdt(self):
         start_time = get_start_time()
         assert (
             start_time.strftime("%Y-%m-%d %H:%M:%S %Z%z")
             == "2024-01-20 09:20:00 NZDT+1300"
         )
-
-        slides = process_slides(self.weather_items, display_time_zone, start_time)
+        slides = SlidesParser(self.weather_items, display_time_zone, start_time).parse()
         assert isinstance(slides, list)
         assert len(slides) == 1
-
         assert slides[0]["slide_number"] == 1
         assert slides[0]["title"] == "Surface Pressure 0700"
         assert slides[0]["file_name"] == "001 Surface Pressure 0700"
@@ -145,8 +128,7 @@ class TestProcessSlides:
         assert slides[0]["hidden"] is False
 
     @freezegun.freeze_time("2024-01-19 20:20:00", tz_offset=13)
-    def test_process_slides_with_day_shift(self):
-        """Test processing of items with day shift in URL."""
+    def test_with_day_shift(self):
         items = [
             {
                 "name": "Surface Pressure",
@@ -159,10 +141,9 @@ class TestProcessSlides:
             }
         ]
         start_time = get_start_time()
-        slides = process_slides(items, display_time_zone, start_time)
+        slides = SlidesParser(items, display_time_zone, start_time).parse()
         assert isinstance(slides, list)
         assert len(slides) == 1
-
         assert slides[0]["slide_number"] == 1
         assert slides[0]["title"] == "Surface Pressure 0100 Sunday"
         assert slides[0]["file_name"] == "001 Surface Pressure 0100 Sunday"

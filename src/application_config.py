@@ -1,110 +1,12 @@
 import json
-from datetime import datetime, timedelta
+from datetime import datetime
 from os import path
 
 from pytz import timezone
 
+from slides_parser import SlidesParser
+
 # pylint: disable=too-few-public-methods
-
-
-def process_slides(items, display_time_zone, start_time):
-    """
-    Convert config items into processed slides with all metadata.
-
-    Args:
-        items (list): List of config items to process
-        display_time_zone (pytz.timezone): User's time zone for display
-        start_time (datetime): Start time of application in user's time zone
-    Returns:
-        list: List of slide dictionaries with keys:
-            - slide_number (int): Sequential number starting from 1
-            - title (str|None): Slide title, null when omitting
-            - file_name (str): Generated filename for download
-            - url (str): Fully processed URL ready for download
-            - hidden (bool): Whether slide should be hidden
-    """
-    slides = []
-    slide_number = 1
-
-    for item in items:
-        # Get times list, default to single empty string for items without times
-        times = item.get("times", [""])
-
-        for time in times:
-            # Process title - for items with times, append the time
-            title = item["name"]
-            # Create timezone-aware reference datetime if time is specified
-            reference_datetime = None
-            if time:
-                hour = int(time[:2])
-                minute = int(time[2:4])
-                day_shift = int(time[5:6]) if len(time) > 5 else 0
-
-                # Create reference datetime
-                item_tz_name = item.get("time_zone", display_time_zone.zone)
-                item_tz = timezone(item_tz_name)
-                reference_datetime = start_time.astimezone(item_tz).replace(
-                    hour=hour, minute=minute, second=0, microsecond=0
-                ) + timedelta(days=day_shift)
-
-                # For title: Convert reference datetime to display timezone
-                title_datetime = reference_datetime.astimezone(display_time_zone)
-                time_str = title_datetime.strftime(
-                    "%H%M" if day_shift == 0 else "%H%M %A"
-                )
-                title = f"{item['name']} {time_str}"
-            else:
-                title = item["name"]
-
-            # Generate file name
-            file_name_parts = [f"{slide_number:03d}", title]
-            file_name = " ".join(file_name_parts)
-
-            # Process URL - substitute datetime placeholders if present
-            url = item["url"]
-            if reference_datetime is not None:
-                # For URL processing: handle url_time_zone and url_offset
-                url_time_zone_name = item.get("url_time_zone")
-                url_offset = item.get("url_offset", 0)
-
-                if url_time_zone_name:
-                    # Convert reference time to URL timezone first
-                    url_time_zone = timezone(url_time_zone_name)
-                    url_time = reference_datetime.astimezone(url_time_zone)
-
-                    # Then apply offset if specified
-                    if url_offset:
-                        url_time = url_time + timedelta(hours=url_offset)
-                else:
-                    # No url_time_zone, just apply offset to reference time
-                    if url_offset:
-                        url_time = reference_datetime + timedelta(hours=url_offset)
-                    else:
-                        url_time = reference_datetime
-            else:
-                url_time = start_time
-
-            url = url_time.strftime(item["url"])
-
-            slide = {
-                "slide_number": slide_number,
-                "title": None if item.get("image_includes_caption") else title,
-                "file_name": file_name,
-                "url": url,
-                "hidden": set_hidden(item, time),
-            }
-            slides.append(slide)
-            slide_number += 1
-
-    return slides
-
-
-def set_hidden(item, time):
-    show_by_default = item.get("show_by_default") and (
-        item.get("show_by_default") is True
-        or item.get("show_by_default").count(time) > 0
-    )
-    return not show_by_default
 
 
 class ApplicationConfig:
@@ -132,6 +34,6 @@ class ApplicationConfig:
         self.start_time = self.display_time_zone.fromutc(datetime.utcnow())
         self.img_dir = self.start_time.strftime(img_dir_path)
         self.items = self.config["items"]
-        self.slides = process_slides(
+        self.slides = SlidesParser(
             self.config["items"], self.display_time_zone, self.start_time
-        )
+        ).parse()
