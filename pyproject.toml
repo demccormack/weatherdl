@@ -24,6 +24,7 @@ build = [
 
 [tool.uv]
 required-version = ">=0.13.4"
+no-build-package = ["lxml", "pillow"]
 
 [tool.pytest.ini_options]
 addopts = [
