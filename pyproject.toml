@@ -16,7 +16,7 @@ dev = [
     "black==26.10.1",
     "pylint==4.0.9",
     "pytest==9.2.0",
-    "isort==8.0.1",
+    "isort==9.0.2",
     "autopep8==2.3.2",
 ]
 build = [
