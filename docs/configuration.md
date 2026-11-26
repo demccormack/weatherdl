@@ -13,7 +13,6 @@ Each image can have the following settings:
    - `url`: Required. Supports date/time substitutions.
    - `times`: Optional. An array of invariant reference times to be substituted into the URL. More than one time means more than one image will be downloaded.
    - `time_zone`: Optional. The time zone of the image's invariant reference time. Choose this so that you don't have to change the config file when the clocks change for daylight saving. If omitted it will default to the `display_time_zone`.
-   - `url_time_zone`: Optional. The invariant reference time will be converted to this time zone before substitution into the URL.
-   - `url_offset`: Optional. An additional offset to apply after time zone conversion, before substitution into the URL. Phew this is complicated!
+   - `url_time_zone`: Optional. The invariant reference time will be converted to this time zone before substitution into the URL. Use `UTC` for providers whose URLs are in UTC (e.g. Metservice and MetVuw). If omitted, the reference time is substituted in its own time zone.
    - `image_includes_caption`: Optional. Set this to a truthy value if the title box should be omitted from the slide.
    - `show_by_default`: Optional. Slides are hidden by default (because a briefing should be brief). Set this to `true` to show all slides for this item, or provide an array of the times for which slides should be shown.

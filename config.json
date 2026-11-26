@@ -7,24 +7,21 @@
             "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
             "times": ["1200", "1800"],
             "time_zone": "UTC",
-            "url_time_zone": "Pacific/Auckland",
-            "url_offset": -12,
+            "url_time_zone": "UTC",
             "show_by_default": true
         },
         {
             "name": "Infrared",
             "url": "https://www.metservice.com/publicData/australiaInfraredColourImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
             "times": ["0600", "0700", "0800", "0900"],
-            "url_time_zone": "Pacific/Auckland",
-            "url_offset": -12,
+            "url_time_zone": "UTC",
             "show_by_default": true
         },
         {
             "name": "Visible",
             "url": "https://www.metservice.com/publicData/nzVisibleSatelliteImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
             "times": ["0600", "0700", "0800", "0900"],
-            "url_time_zone": "Pacific/Auckland",
-            "url_offset": -12,
+            "url_time_zone": "UTC",
             "show_by_default": true
         },
         {
@@ -88,8 +85,7 @@
             "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
             "times": ["0000+1"],
             "time_zone": "UTC",
-            "url_time_zone": "Pacific/Auckland",
-            "url_offset": -12,
+            "url_time_zone": "UTC",
             "show_by_default": true
         },
         {
@@ -98,8 +94,7 @@
             "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-012.gif",
             "times": ["1200"],
             "time_zone": "UTC",
-            "url_time_zone": "Pacific/Auckland",
-            "url_offset": -12,
+            "url_time_zone": "UTC",
             "show_by_default": true
         },
         {
@@ -168,8 +163,7 @@
             "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
             "times": ["1200+1", "0000+2"],
             "time_zone": "UTC",
-            "url_time_zone": "Pacific/Auckland",
-            "url_offset": -12,
+            "url_time_zone": "UTC",
             "show_by_default": true
         },
         {
@@ -185,8 +179,7 @@
             "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-036.gif",
             "times": ["1200"],
             "time_zone": "UTC",
-            "url_time_zone": "Pacific/Auckland",
-            "url_offset": -12,
+            "url_time_zone": "UTC",
             "show_by_default": true
         },
         {
@@ -195,8 +188,7 @@
             "url": "http://www.metvuw.com/forecast/%Y%m%d%H/rain-nzsi-%Y%m%d%H-060.gif",
             "times": ["1200"],
             "time_zone": "UTC",
-            "url_time_zone": "Pacific/Auckland",
-            "url_offset": -12,
+            "url_time_zone": "UTC",
             "show_by_default": true
         }
     ]

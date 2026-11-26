@@ -60,10 +60,12 @@ class SlidesParser:
         day_shift = int(time[5:6]) if len(time) > 5 else 0
         item_tz_name = item.get("time_zone", self.display_time_zone.zone)
         item_tz = timezone(item_tz_name)
-        reference_datetime = self.start_time.astimezone(item_tz).replace(
-            hour=hour, minute=minute, second=0, microsecond=0
-        ) + timedelta(days=day_shift)
-        return reference_datetime
+        local_date = self.start_time.astimezone(item_tz).replace(tzinfo=None)
+        # Localize after shifting so the UTC offset is right across DST changes
+        return item_tz.localize(
+            local_date.replace(hour=hour, minute=minute, second=0, microsecond=0)
+            + timedelta(days=day_shift)
+        )
 
     def _get_title(self, item, time, reference_datetime):
         if reference_datetime is not None:
@@ -80,13 +82,10 @@ class SlidesParser:
         url = item["url"]
         if reference_datetime is not None:
             url_time_zone_name = item.get("url_time_zone")
-            url_offset = item.get("url_offset", 0)
             if url_time_zone_name:
-                url_time_zone = timezone(url_time_zone_name)
-                url_time = reference_datetime.astimezone(url_time_zone)
-                url_time = url_time + timedelta(hours=url_offset)
+                url_time = reference_datetime.astimezone(timezone(url_time_zone_name))
             else:
-                url_time = reference_datetime + timedelta(hours=url_offset)
+                url_time = reference_datetime
         else:
             url_time = self.start_time
         return url_time.strftime(url)

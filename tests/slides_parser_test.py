@@ -1,4 +1,5 @@
 import freezegun
+import pytest
 from pytz import timezone
 
 from slides_parser import SlidesParser
@@ -83,8 +84,7 @@ class TestSlidesParser:
             "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
             "times": ["1800"],
             "time_zone": "UTC",
-            "url_time_zone": "Pacific/Auckland",
-            "url_offset": -12,
+            "url_time_zone": "UTC",
             "show_by_default": True,
         }
     ]
@@ -125,7 +125,7 @@ class TestSlidesParser:
         assert (
             slides[0]["url"]
             # pylint: disable=line-too-long
-            == "https://www.metservice.com/publicData/surfacePressureImage?time=20240119-1900-00.000&analysis=20240119-1900-00.000"
+            == "https://www.metservice.com/publicData/surfacePressureImage?time=20240119-1800-00.000&analysis=20240119-1800-00.000"
         )
         assert slides[0]["hidden"] is False
 
@@ -138,8 +138,7 @@ class TestSlidesParser:
                 "url": "https://www.metservice.com/publicData/surfacePressureImage?time=%Y%m%d-%H%M-00.000&analysis=%Y%m%d-%H%M-00.000",
                 "times": ["1200+1"],
                 "time_zone": "UTC",
-                "url_time_zone": "Pacific/Auckland",
-                "url_offset": -12,
+                "url_time_zone": "UTC",
                 "show_by_default": True,
             }
         ]
@@ -157,6 +156,49 @@ class TestSlidesParser:
         assert (
             slides[0]["url"]
             # pylint: disable=line-too-long
-            == "https://www.metservice.com/publicData/surfacePressureImage?time=20240120-1300-00.000&analysis=20240120-1300-00.000"
+            == "https://www.metservice.com/publicData/surfacePressureImage?time=20240120-1200-00.000&analysis=20240120-1200-00.000"
         )
         assert slides[0]["hidden"] is False
+
+    local_satellite_item = [
+        {
+            "name": "Infrared",
+            "url": "%Y%m%d-%H%M",
+            "times": ["0800", "0900"],
+            "url_time_zone": "UTC",
+        }
+    ]
+
+    @pytest.mark.parametrize(
+        "frozen, tz_offset, expected_urls",
+        [
+            # NZST: 0800/0900 local are 2000/2100 UTC the previous day
+            ("2024-07-19 21:20:00", 12, ["20240719-2000", "20240719-2100"]),
+            # NZDT: 0800/0900 local are 1900/2000 UTC the previous day
+            ("2024-01-19 20:20:00", 13, ["20240119-1900", "20240119-2000"]),
+        ],
+    )
+    def test_local_times_converted_to_utc_url(self, frozen, tz_offset, expected_urls):
+        with freezegun.freeze_time(frozen, tz_offset=tz_offset):
+            start_time = current_time(display_time_zone)
+            slides = SlidesParser(
+                self.local_satellite_item, display_time_zone, start_time
+            ).parse()
+        assert [s["url"] for s in slides] == expected_urls
+        assert [s["title"] for s in slides] == ["Infrared 0800", "Infrared 0900"]
+
+    def test_day_shift_across_dst_change(self):
+        # NZ clocks go forward at 2am on 2024-09-29
+        items = [
+            {
+                "name": "Forecast",
+                "url": "%Y%m%d-%H%M",
+                "times": ["0900+1"],
+                "url_time_zone": "UTC",
+            }
+        ]
+        with freezegun.freeze_time("2024-09-28 08:20:00", tz_offset=12):
+            start_time = current_time(display_time_zone)
+            slides = SlidesParser(items, display_time_zone, start_time).parse()
+        assert slides[0]["title"] == "Forecast 0900 Sunday"
+        assert slides[0]["url"] == "20240928-2000"
