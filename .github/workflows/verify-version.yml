@@ -1,0 +1,18 @@
+name: Verify version
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  verify-version:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+    - name: Check pyproject.toml version matches tag
+      run: |
+        project_version=$(python3 -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")
+        if [ "${project_version#v}" != "${GITHUB_REF_NAME#v}" ]; then
+          echo "::error::pyproject.toml version ($project_version) does not match tag ($GITHUB_REF_NAME)"
+          exit 1
+        fi

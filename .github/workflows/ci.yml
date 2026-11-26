@@ -8,11 +8,16 @@ on:
       - "v*"
 
 jobs:
+  verify-version:
+    if: startsWith(github.ref, 'refs/tags/v')
+    uses: ./.github/workflows/verify-version.yml
+
   check:
     uses: ./.github/workflows/check.yml
 
   build:
-    needs: check
+    needs: [check, verify-version]
+    if: ${{ !failure() && !cancelled() }}
     uses: ./.github/workflows/build.yml
 
   test-releases:
