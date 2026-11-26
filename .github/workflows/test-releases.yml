@@ -24,10 +24,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Download ${{ matrix.platform }} build artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: weatherdl-for-${{ matrix.platform }}
           path: weatherdl

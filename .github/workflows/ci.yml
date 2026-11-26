@@ -8,11 +8,14 @@ on:
       - "v*"
 
 jobs:
+  verify-version:
+    uses: ./.github/workflows/verify-version.yml
+
   check:
     uses: ./.github/workflows/check.yml
 
   build:
-    needs: check
+    needs: [check, verify-version]
     uses: ./.github/workflows/build.yml
 
   test-releases:
